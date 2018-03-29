@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/colorControlHighlight"
+
+    android:orientation="vertical"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.juniorsantos.barberapp.TelaMenu"
+    tools:showIn="@layout/app_bar_tela_menu">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:id="@+id/imageView15"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:adjustViewBounds="true"
+            android:clickable="true"
+            android:scaleType="centerCrop"
+
+            app:srcCompat="@drawable/logobarber" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView10"
+                android:layout_width="126dp"
+                android:layout_height="127dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                app:srcCompat="@drawable/barbeiros" />
+
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="126dp"
+                android:layout_height="127dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                app:srcCompat="@drawable/servicos" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imageView13"
+                android:layout_width="126dp"
+                android:layout_height="127dp"
+                android:layout_margin="5dp"
+                android:padding="5dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/local" />
+
+            <ImageView
+                android:id="@+id/imageView11"
+                android:layout_width="126dp"
+                android:layout_height="127dp"
+
+                android:layout_margin="5dp"
+                android:onClick="testeAqui"
+                android:padding="5dp"
+                app:srcCompat="@drawable/agendar" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</ScrollView>

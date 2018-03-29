@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">BarberApp</string>
+    <string name="title_activity_tela_menu">TelaMenu</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Sobre</string>
+    <string name="title_activity_tela_agendamento">TelaAgendamento</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_detail">activity_detail</string>
+    <string name="title_activity_detaill">DetaillActivity</string>
+    <string-array name="numbers">
+        <item>Teste</item>
+    </string-array>
+
+
+
+</resources>

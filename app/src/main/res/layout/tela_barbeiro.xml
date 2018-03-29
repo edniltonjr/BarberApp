@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.juniorsantos.barberapp.TelaBarbeiro">
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Escolha o Barbeiro"
+        android:textColor="@android:color/background_dark"
+        android:textSize="24sp"
+        android:layout_marginTop="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/barb1"
+        android:layout_width="1002px"
+        android:layout_height="324px"
+        android:layout_alignLeft="@+id/barb3"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/barb3"
+        android:layout_column="1"
+        android:layout_marginTop="114dp"
+        android:layout_row="3"
+        android:background="@drawable/barb1"
+        android:onClick="barbeiro1"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="268dp" />
+
+    <Button
+        android:id="@+id/barb2"
+        android:layout_width="1002px"
+        android:layout_height="324px"
+        android:layout_alignLeft="@+id/barb1"
+        android:layout_alignStart="@+id/barb1"
+        android:layout_below="@+id/barb1"
+        android:layout_column="1"
+        android:layout_marginTop="17dp"
+        android:layout_row="1"
+        android:background="@drawable/barb2"
+        android:onClick="barbeiro2"
+        android:text="O"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="199dp" />
+
+    <Button
+        android:id="@+id/barb3"
+        android:layout_width="1002px"
+        android:layout_height="324px"
+        android:layout_alignTop="@+id/barb2"
+        android:layout_centerHorizontal="true"
+        android:layout_column="0"
+        android:layout_marginTop="123dp"
+        android:layout_row="0"
+        android:background="@drawable/barb3"
+        android:onClick="barbeiro3"
+        tools:layout_editor_absoluteX="116dp"
+        tools:layout_editor_absoluteY="126dp" />
+
+    <Button
+        android:id="@+id/aleatorio"
+        android:layout_width="1002px"
+        android:layout_height="194px"
+        android:background="@drawable/sembarb"
+        android:onClick="aleatorio"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/barb3"
+        android:layout_alignStart="@+id/barb3"
+        android:layout_marginBottom="13dp" />
+
+</RelativeLayout>

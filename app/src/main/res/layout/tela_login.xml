@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#373435"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+
+    <ImageView
+        android:id="@+id/imageView18"
+        android:layout_width="1080px"
+        android:layout_height="1385px"
+        app:srcCompat="@drawable/white"
+        android:layout_marginBottom="17dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignLeft="@+id/btnSair"
+        android:layout_alignStart="@+id/btnSair" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="379px"
+        android:layout_height="381px"
+        app:srcCompat="@drawable/logobarber"
+        android:layout_marginTop="52dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:id="@+id/editUser"
+        android:layout_width="569px"
+        android:layout_height="117px"
+        android:layout_below="@+id/imageView7"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/backlogin"
+        android:ems="10"
+        android:drawableLeft="@drawable/ic_barba_white"
+        android:drawablePadding="5dp"
+        android:inputType="textPersonName"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textColorHighlight="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:textColorLink="@android:color/background_light"
+        android:textCursorDrawable="@android:color/background_light"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/editSenha"
+        android:layout_width="569px"
+        android:layout_height="117px"
+        android:layout_alignEnd="@+id/editUser"
+        android:layout_alignRight="@+id/editUser"
+        android:layout_below="@+id/editUser"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/backlogin"
+        android:ems="10"
+        android:inputType="textPassword"
+        android:textAlignment="center"
+        android:textColor="@android:color/background_light"
+        android:textColorHighlight="@android:color/background_light"
+        android:textColorHint="@android:color/background_light"
+        android:textColorLink="@android:color/background_light"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/imageView19"
+        android:layout_width="66px"
+        android:layout_height="74px"
+        android:layout_marginBottom="10dp"
+        app:srcCompat="@drawable/keylogo"
+        android:layout_alignBottom="@+id/editSenha"
+        android:layout_toLeftOf="@+id/imageView7"
+        android:layout_toStartOf="@+id/imageView7" />
+
+
+
+    <Button
+        android:id="@+id/btnSair"
+        android:layout_width="1064px"
+        android:layout_height="130px"
+        android:backgroundTint="@android:color/holo_red_light"
+        android:text="Sair"
+        android:textColor="@android:color/background_light"
+        android:layout_below="@+id/btnEntrar"
+        android:layout_alignLeft="@+id/btnEntrar"
+        android:layout_alignStart="@+id/btnEntrar" />
+
+    <Button
+        android:id="@+id/btnEntrar"
+        android:layout_width="1064px"
+        android:layout_height="130px"
+        android:layout_marginTop="76dp"
+        android:backgroundTint="@android:color/holo_green_light"
+        android:text="Entrar"
+        android:textColor="@android:color/background_light"
+        android:layout_below="@+id/editSenha"
+        android:layout_centerHorizontal="true" />
+
+</RelativeLayout>
