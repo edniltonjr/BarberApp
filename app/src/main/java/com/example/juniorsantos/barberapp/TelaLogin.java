@@ -13,8 +13,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.juniorsantos.barberapp.core.BaseActivity;
+import com.example.juniorsantos.barberapp.login.LoginFragment;
 import com.example.juniorsantos.barberapp.model.DetaillActivity;
 import com.example.juniorsantos.barberapp.model.MainActivity;
+
 
 
 import java.io.IOException;
@@ -46,7 +48,7 @@ public class TelaLogin extends BaseActivity{
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getBaseContext(), TelaHorario.class);
+                Intent intent = new Intent(getBaseContext(), LoginFragment.class);
                 startActivity(intent);
                 //finish();
 
