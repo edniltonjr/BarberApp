@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/login"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context="com.example.juniorsantos.barberapp.remote.LoginFire">
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginTop="-80dp"
+        android:background="@drawable/logo" />
+
+
+    <EditText
+
+        android:id="@+id/edtEmail"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:drawableLeft="@drawable/barb"
+        android:gravity="center"
+        android:hint="E-Mail"
+        android:inputType="textEmailAddress"
+        android:textCursorDrawable="@android:color/holo_blue_light" />
+
+    <EditText
+        android:drawableLeft="@drawable/kkey"
+        android:id="@+id/edtSenha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center"
+        android:hint="Sua Senha"
+        android:inputType="textPassword"
+        android:textCursorDrawable="@android:color/holo_blue_light" />
+
+    <Button
+        android:id="@+id/btnLogar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/entrar"
+        />
+
+    <Button
+        android:id="@+id/btnSair"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/sair"
+        />
+
+    <TextView
+
+        android:id="@+id/edtAbreCadastro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:gravity="center"
+        android:text="Não tem cadastro? Clique aqui!"
+        android:textSize="15dp" />
+
+
+</LinearLayout>
