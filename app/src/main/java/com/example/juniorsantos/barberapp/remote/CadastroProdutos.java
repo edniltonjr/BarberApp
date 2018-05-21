@@ -68,6 +68,8 @@ public class CadastroProdutos extends AppCompatActivity {
     private boolean salvarProduto(Produtos produtos) {
         try {
             firebase = ConfiguracaoFirebase.getFirebase().child("addprodutos");
+
+
             firebase.child(produtos.getNome()).setValue(produtos);
             Toast.makeText(CadastroProdutos.this, "Produto inserido com sucesso", Toast.LENGTH_LONG).show();
             return true;
