@@ -6,7 +6,23 @@ package com.example.juniorsantos.barberapp.model;
 
 public class Agendamento {
 
-    private String servico,barbeiro;
+    private String usuario,servico, horario, barbeiro;
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getHorario() {
+        return horario;
+    }
+
+    public void setHorario(String horario) {
+        this.horario = horario;
+    }
 
     public String getServico() {
         return servico;

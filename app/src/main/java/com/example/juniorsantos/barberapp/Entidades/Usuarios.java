@@ -25,6 +25,8 @@ public class Usuarios {
         referenciaFirebase.child("usuario").child(String.valueOf(getId())).setValue(this);
     }
 
+
+
     @Exclude
 
     public Map<String, Object> toMap(){

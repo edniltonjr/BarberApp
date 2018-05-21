@@ -9,13 +9,11 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.juniorsantos.barberapp.core.BaseActivity;
-import com.example.juniorsantos.barberapp.model.MainActivity;
 
 public class TelaMenu extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -84,6 +82,8 @@ public class TelaMenu extends BaseActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -93,6 +93,7 @@ public class TelaMenu extends BaseActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
+
 
         } else if (id == R.id.nav_slideshow) {
 

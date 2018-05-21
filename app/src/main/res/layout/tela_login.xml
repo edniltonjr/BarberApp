@@ -36,16 +36,16 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="40dp"
         android:background="@drawable/backlogin"
-        android:ems="10"
         android:drawableLeft="@drawable/ic_barba_white"
         android:drawablePadding="5dp"
+        android:ems="10"
         android:inputType="textPersonName"
         android:textAlignment="center"
-        android:textColor="@android:color/background_light"
-        android:textColorHighlight="@android:color/background_light"
-        android:textColorHint="@android:color/background_light"
-        android:textColorLink="@android:color/background_light"
-        android:textCursorDrawable="@android:color/background_light"
+        android:textColor="#ffffff"
+        android:textColorHighlight="#000000"
+        android:textColorHint="@android:color/holo_red_dark"
+        android:textColorLink="@android:color/holo_orange_light"
+        android:textCursorDrawable="@android:color/holo_blue_light"
         android:textSize="18sp" />
 
     <EditText

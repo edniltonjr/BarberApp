@@ -13,16 +13,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <activity
-            android:name=".TelaLogin"
-            android:screenOrientation="portrait">
+            android:name=".remote.LoginFire"
+            android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".TelaInicial" />
+
+
         <activity
             android:name=".TelaMenu"
             android:label="@string/title_activity_tela_menu"
@@ -33,22 +35,14 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".TelaAgendar" />
         <activity android:name=".TelaBarbeiro" />
-        <activity android:name=".Agendamentos" />
-        <activity android:name=".AgendamentoList" />
-        <activity android:name=".model.Show" />
-        <activity
-            android:name=".model.MainActivity"
-            android:label="@string/title_activity_main"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".activity_detail"
-            android:label="@string/title_activity_detail"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".model.DetaillActivity"
             android:label="@string/title_activity_detaill"
             android:theme="@style/AppTheme" />
-        <activity android:name=".TelaHorario"></activity>
+        <activity android:name=".TelaHorario" />
+        <activity android:name=".remote.CadastroActivity" />
+        <activity android:name=".remote.CadastroProdutos" />
+        <activity android:name=".remote.ProdutosActivity"></activity>
+        <activity android:name=".remote.ActivityPrincipal"></activity>
     </application>
 
 </manifest>

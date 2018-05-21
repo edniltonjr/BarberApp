@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "955545159325",
+    "firebase_url": "https://barbearia-app-4d787.firebaseio.com",
+    "project_id": "barbearia-app-4d787",
+    "storage_bucket": "barbearia-app-4d787.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:955545159325:android:225e899277f1be82",
+        "android_client_info": {
+          "package_name": "com.example.juniorsantos.barberapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "955545159325-sqn4eauodpmnm65jp88uhlhikjrlli3r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.juniorsantos.barberapp",
+            "certificate_hash": "fcd4ca20caf3b96618f154e6e0587a7c92b8d8d0"
+          }
+        },
+        {
+          "client_id": "955545159325-4cttkbiup4tluc60kg56um5somul55uo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDbcknuTaGB57d_H54sfdISSBCvqFTm9Jg"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "955545159325-4cttkbiup4tluc60kg56um5somul55uo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

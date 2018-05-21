@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.AsyncTask;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,13 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.juniorsantos.barberapp.core.BaseActivity;
-import com.example.juniorsantos.barberapp.login.LoginFragment;
-import com.example.juniorsantos.barberapp.model.DetaillActivity;
-import com.example.juniorsantos.barberapp.model.MainActivity;
-
-
-
-import java.io.IOException;
+import com.example.juniorsantos.barberapp.remote.LoginFire;
 
 public class TelaLogin extends BaseActivity{
 
@@ -48,7 +41,7 @@ public class TelaLogin extends BaseActivity{
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getBaseContext(), LoginFragment.class);
+                Intent intent = new Intent(getBaseContext(), LoginFire.class);
                 startActivity(intent);
                 //finish();
 
