@@ -13,6 +13,10 @@ import java.util.List;
 public class SpinnerAdapter implements android.widget.SpinnerAdapter {
     private List<Produtos> produtos;
 
+    public SpinnerAdapter(List<Produtos> produtos) {
+        this.produtos = produtos;
+    }
+
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         return getView(position,convertView,parent);

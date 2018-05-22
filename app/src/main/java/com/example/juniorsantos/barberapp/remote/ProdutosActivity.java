@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -12,22 +13,23 @@ import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.example.juniorsantos.barberapp.Adapter.ProdutosAdapter;
+import com.example.juniorsantos.barberapp.Adapter.SpinnerAdapter;
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
 import com.example.juniorsantos.barberapp.Entidades.Produtos;
 import com.example.juniorsantos.barberapp.R;
+import com.example.juniorsantos.barberapp.dataloader.ProdutoDataloader;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 
 public class ProdutosActivity extends AppCompatActivity {
 
     private Spinner spinner;
-    private ListView listView;
     private ArrayAdapter<Produtos> adapter;
     private ArrayList<Produtos> produtos;
     private DatabaseReference firebase;
@@ -39,28 +41,19 @@ public class ProdutosActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_produtos);
 
+        spinner = (Spinner) findViewById(R.id.spinnerview);
 
-        produtos = new ArrayList<>();
-        listView = (ListView) findViewById(R.id.listViewProdutos);
+        List<SpinnerAdapter> spinnerAdapters = new ArrayList<SpinnerAdapter>();
 
-        adapter = new ProdutosAdapter(this, produtos);
 
-        listView.setAdapter(adapter);
+
 
         firebase = ConfiguracaoFirebase.getFirebase().child("addprodutos");
-
-        valueEventListenerProdutos = new ValueEventListener() {
+        valueEventListenerProdutos = new ProdutoDataloader(new ProdutoDataloader.ProdutoDataListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                produtos.clear();
+            public void onProdutoLoaded(List<Produtos> list) {
 
-                for (DataSnapshot dados : dataSnapshot.getChildren()) {
-                    Produtos produtosNovo = dados.getValue(Produtos.class);
-
-                    produtos.add(produtosNovo);
-                }
-
-                adapter.notifyDataSetChanged();
+                spinner.setAdapter(new SpinnerAdapter(list));
 
             }
 
@@ -69,13 +62,12 @@ public class ProdutosActivity extends AppCompatActivity {
 
 
 
+        });
 
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        };
+
+
 
         btnVoltarTelaInicial = (Button) findViewById(R.id.btnVoltarTelaInicial2);
         btnVoltarTelaInicial.setOnClickListener(new View.OnClickListener() {

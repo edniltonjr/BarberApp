@@ -14,14 +14,15 @@
         android:layout_height="wrap_content"
         android:text="Voltar tela inicial" />
 
-
-    <ListView
-        android:id="@+id/listViewProdutos"
+    <Spinner
+        android:id="@+id/spinnerview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal|top"
-        android:divider="@color/colorPrimary"
-        android:dividerHeight="1dp" />
+        android:layout_height="50dp"
+        android:gravity="center"></Spinner>
+
+
+
+
 
 
 
