@@ -46,10 +46,12 @@ public class ProdutosAdapter extends ArrayAdapter<Produtos> {
 
             TextView textViewNome = (TextView) view.findViewById(R.id.textViewNome);
             TextView textViewValor = (TextView) view.findViewById(R.id.textViewValor);
+            TextView textViewDate = (TextView) view.findViewById(R.id.textViewDate);
 
             Produtos produtos2 = produto.get(position);
             textViewNome.setText(produtos2.getNome());
-            textViewValor.setText(produtos2.getValor().toString());
+            textViewValor.setText(produtos2.getServiço().toString());
+            textViewDate.setText(produtos2.getDate().toString());
 
         }
 
