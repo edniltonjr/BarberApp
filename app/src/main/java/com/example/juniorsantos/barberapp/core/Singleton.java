@@ -2,6 +2,7 @@ package com.example.juniorsantos.barberapp.core;
 
 import android.app.Application;
 
+import com.example.juniorsantos.barberapp.Entidades.Usuarios;
 import com.example.juniorsantos.barberapp.Usuario;
 
 /**
@@ -10,15 +11,28 @@ import com.example.juniorsantos.barberapp.Usuario;
 
 public class Singleton extends Application {
 
-    private Usuario usuario;
+   private String id;
+   private String nome;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
 
     //criar atributo aqui e adicionar getter e setter
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+
 }

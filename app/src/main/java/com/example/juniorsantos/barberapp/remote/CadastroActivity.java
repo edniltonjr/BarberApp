@@ -170,8 +170,9 @@ public class CadastroActivity extends AppCompatActivity {
     }
 
     public void abrirLoginUsuario(){
-        Intent intent = new Intent (CadastroActivity.this, LoginFire.class);
-        startActivity(intent);
+
+        Intent intentEnviadora = new Intent (getApplicationContext(), LoginFire.class);
+        startActivity(intentEnviadora);
         finish();
     }
 

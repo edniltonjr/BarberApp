@@ -7,7 +7,9 @@ import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -18,11 +20,23 @@ import com.example.juniorsantos.barberapp.Entidades.Usuarios;
 import com.example.juniorsantos.barberapp.R;
 import com.example.juniorsantos.barberapp.TelaAgendamento;
 import com.example.juniorsantos.barberapp.TelaMenu;
+import com.example.juniorsantos.barberapp.core.DadosSingleton;
+import com.example.juniorsantos.barberapp.core.Singleton;
 import com.example.juniorsantos.barberapp.model.Agendamento;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
+import java.util.Map;
 
 public class LoginFire extends AppCompatActivity {
 
@@ -34,6 +48,11 @@ public class LoginFire extends AppCompatActivity {
     private FirebaseAuth autenticacao;
     private Usuarios usuarios;
 
+    DatabaseReference databaseUsuario;
+
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +63,12 @@ public class LoginFire extends AppCompatActivity {
         edtSenha = (EditText) findViewById(R.id.edtSenha);
         btnLogar = (Button) findViewById(R.id.btnLogar);
         btnSair = (Button) findViewById(R.id.btnSair);
+
+
+
+
+
+
 
         btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,6 +104,8 @@ public class LoginFire extends AppCompatActivity {
 
 
 
+
+
     private void validarLogin() {
 
 
@@ -96,21 +123,19 @@ public class LoginFire extends AppCompatActivity {
 
                     if (task.isSuccessful()){
 
-                        abrirTela();
-
-                        Toast.makeText(LoginFire.this, usuarios.getEmail().toString() + "Login efetuado com sucesso", Toast.LENGTH_SHORT).show();
-                        abrirTela();
+                        ConfiguracaoFirebase.getDadosCliente(usuarios.getEmail().toString() );
 
 
+                        if(DadosSingleton.getInstance().getUser() != null){
+                            Toast.makeText(LoginFire.this, usuarios.getEmail().toString() + "Login efetuado com sucesso", Toast.LENGTH_SHORT).show();
 
-
+                            abrirTela();
+                        }
                     }
 
                     else {
                         Toast.makeText(LoginFire.this, "Usuário ou senha inválidos", Toast.LENGTH_SHORT).show();
                     }
-
-
 
                 }
 
@@ -118,25 +143,16 @@ public class LoginFire extends AppCompatActivity {
                     Toast.makeText(LoginFire.this, "Não há conexão estabelecida!", Toast.LENGTH_SHORT).show();
                 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             }
         });
     }
 
+
+
     private void abrirTela(){
+
         Intent intentAbrirTela = new Intent(LoginFire.this, ActivityPrincipal.class);
+
         startActivity(intentAbrirTela);
     }
 
@@ -146,4 +162,13 @@ public class LoginFire extends AppCompatActivity {
         finish();
 
     }
-}
+
+
+    public void onChildAdded(DataSnapshot dataSnapshot, String prevChildKey) {
+        Usuarios usuarios = dataSnapshot.getValue(Usuarios.class);
+        System.out.println(dataSnapshot.getKey() + " was " + usuarios.getNome() + " meters tall.");
+    }
+
+
+
+    }

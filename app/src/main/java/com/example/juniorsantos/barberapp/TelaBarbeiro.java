@@ -24,7 +24,6 @@ public class TelaBarbeiro extends BaseActivity {
     String url = "";
     String parametros = "";
     Usuario usuario;
-    TelaLogin login;
 
 
 
@@ -32,7 +31,6 @@ public class TelaBarbeiro extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         usuario = new Usuario();
-        login =  new TelaLogin();
 
 
 

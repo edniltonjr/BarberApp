@@ -32,6 +32,7 @@ public class SpinnerAdapter implements android.widget.SpinnerAdapter {
 
     }
 
+
     @Override
     public int getCount() {
         return produtos.size();

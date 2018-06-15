@@ -7,6 +7,7 @@ import android.widget.TextView;
 import retrofit2.*;
 
 import com.example.juniorsantos.barberapp.R;
+import com.example.juniorsantos.barberapp.core.Singleton;
 import com.example.juniorsantos.barberapp.model.AgendServicw;
 import com.example.juniorsantos.barberapp.model.Agendamento;
 
@@ -15,6 +16,8 @@ import java.util.List;
 public class Main3Activity extends AppCompatActivity {
 
     TextView resultadoTextView;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +29,8 @@ public class Main3Activity extends AppCompatActivity {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://localhost:8080/customer/add")
                 .build();
+
+
 
 
         AgendServicw servicw = retrofit.create(AgendServicw.class);

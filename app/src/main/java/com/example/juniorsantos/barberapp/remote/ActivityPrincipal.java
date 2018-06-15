@@ -7,17 +7,25 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
+import com.example.juniorsantos.barberapp.Entidades.Usuarios;
+import com.example.juniorsantos.barberapp.Helper.PreferenciasAndroid;
 import com.example.juniorsantos.barberapp.R;
+import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.example.juniorsantos.barberapp.remote.CadastroProdutos;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 
 public class ActivityPrincipal extends AppCompatActivity {
 
     private FirebaseAuth usuarioFirebase;
-    private Button btnAddProduto, btnVerProduto;
+    private Button btnAddProduto, btnVerProduto, btnLogout;
+    private TextView teste;
+
+    Usuarios usuarios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +34,8 @@ public class ActivityPrincipal extends AppCompatActivity {
 
         usuarioFirebase = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
+        teste = (TextView) findViewById(R.id.teste);
+        btnLogout = (Button) findViewById(R.id.btnLogout);
         btnAddProduto = (Button) findViewById(R.id.btnAddProduto);
         btnVerProduto = (Button) findViewById(R.id.btnVerProdutos);
 
@@ -36,13 +46,29 @@ public class ActivityPrincipal extends AppCompatActivity {
             }
         });
 
+
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deslogarUsuario();
+            }
+        });
+
         btnVerProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 verProdutos();
             }
         });
+
+
+
+        teste.setText(DadosSingleton.getInstance().getUser().getNome().toString());
     }
+
+
+
 
 
     @Override
@@ -80,7 +106,7 @@ public class ActivityPrincipal extends AppCompatActivity {
     }
 
     private void deslogarUsuario() {
-        usuarioFirebase.signOut();
+        usuarioFirebase.getInstance().signOut();
         Intent intent = new Intent(ActivityPrincipal.this, LoginFire.class);
         startActivity(intent);
         finish();

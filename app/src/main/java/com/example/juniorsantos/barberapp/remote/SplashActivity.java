@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
 import com.example.juniorsantos.barberapp.Helper.PreferenciasAndroid;
 import com.example.juniorsantos.barberapp.R;
+import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class SplashActivity extends AppCompatActivity {
@@ -32,7 +34,16 @@ public class SplashActivity extends AppCompatActivity {
                         usuarioFirebase.getCurrentUser().getEmail() != null
                         && !usuarioFirebase.getCurrentUser().getEmail().isEmpty()){
 
-                    startActivity(new Intent(SplashActivity.this, ActivityPrincipal.class));
+                    ConfiguracaoFirebase.getDadosCliente( usuarioFirebase.getCurrentUser().getEmail() );
+
+                    if(DadosSingleton.getInstance().getUser() != null){
+
+                        startActivity(new Intent(SplashActivity.this, ActivityPrincipal.class));
+                    }else {
+                        mostrarLogin();
+                    }
+
+
                 }else {
                     mostrarLogin();
                 }

@@ -1,6 +1,8 @@
 package com.example.juniorsantos.barberapp.dataloader;
 
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.example.juniorsantos.barberapp.Entidades.Produtos;
 import com.google.firebase.database.DataSnapshot;
@@ -47,4 +49,10 @@ public class ProdutoDataloader implements ValueEventListener {
     public interface ProdutoDataListener {
         void onProdutoLoaded(List<Produtos> list);
     }
+
+
+
+
+
+
 }

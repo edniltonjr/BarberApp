@@ -36,7 +36,7 @@ public class PreferenciasAndroid {
 
     }
 
-    public String getNome(){
+    public  String getNome(){
 
         return preferences.getString(CHAVE_NOME, null);
 
