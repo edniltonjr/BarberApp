@@ -208,8 +208,6 @@ public class ProdutosActivity extends AppCompatActivity implements  DatePickerDi
 
     private void deslogarUsuario() {
         usuarioFirebase.signOut();
-        PreferenciasAndroid preferenciasAndroid = new PreferenciasAndroid(this);
-        preferenciasAndroid.salvarUsuarioPreferencias(null, null);
         Intent intent = new Intent(ProdutosActivity.this, LoginFire.class);
         startActivity(intent);
         finish();

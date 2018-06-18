@@ -127,7 +127,7 @@ public class LoginFire extends AppCompatActivity {
 
 
                         if(DadosSingleton.getInstance().getUser() != null){
-                            Toast.makeText(LoginFire.this, usuarios.getEmail().toString() + "Login efetuado com sucesso", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginFire.this, "Seja Bem vindo " + DadosSingleton.getInstance().getUser().getNome().toString() , Toast.LENGTH_SHORT).show();
 
                             abrirTela();
                         }

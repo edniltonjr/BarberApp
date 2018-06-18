@@ -53,6 +53,7 @@ public class ProdutosAdapter extends ArrayAdapter<Produtos> {
             textViewValor.setText(produtos2.getServiço().toString());
             textViewDate.setText(produtos2.getDate().toString());
 
+
         }
 
         return view;

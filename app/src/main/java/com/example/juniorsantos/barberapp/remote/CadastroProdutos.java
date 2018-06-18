@@ -130,6 +130,7 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
                 produtos.setDate(edtHorario.getText().toString());
                 String nomeBarbeiro = ((Produtos) spinnerc.getSelectedItem()).getNome();
                 produtos.setBarbeiro(nomeBarbeiro);
+                produtos.setCliente(produtos.getCliente());
                 String idenficadorUsuario = Base64Custom.codificarBase64(produtos.getNome());
                 produtos.setId(idenficadorUsuario);
                 if (produtos.salvar(produtos) == true){

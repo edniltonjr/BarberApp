@@ -24,6 +24,18 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="15dp"
+        android:text="Escolha o barbeiro"/>
+
+    <Spinner
+        android:tooltipText="texto"
+        android:id="@+id/spinnerview2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></Spinner>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="VALOR:" />
 
     <EditText

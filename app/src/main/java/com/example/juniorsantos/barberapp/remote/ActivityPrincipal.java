@@ -39,6 +39,7 @@ public class ActivityPrincipal extends AppCompatActivity {
         btnAddProduto = (Button) findViewById(R.id.btnAddProduto);
         btnVerProduto = (Button) findViewById(R.id.btnVerProdutos);
 
+
         btnAddProduto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,8 +65,10 @@ public class ActivityPrincipal extends AppCompatActivity {
 
 
 
-        teste.setText(DadosSingleton.getInstance().getUser().getNome().toString());
+
     }
+
+
 
 
 
@@ -76,6 +79,8 @@ public class ActivityPrincipal extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.principal_activity, menu);
         return true;
+
+
     }
 
     @Override
@@ -88,6 +93,7 @@ public class ActivityPrincipal extends AppCompatActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_sair) {
             deslogarUsuario();
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -102,11 +108,13 @@ public class ActivityPrincipal extends AppCompatActivity {
     private void verProdutos() {
         Intent intent = new Intent(ActivityPrincipal.this, ProdutosActivity.class);
         startActivity(intent);
+
         finish();
     }
 
     private void deslogarUsuario() {
-        usuarioFirebase.getInstance().signOut();
+        DadosSingleton.getInstance().setUser(null);
+        usuarioFirebase.signOut();
         Intent intent = new Intent(ActivityPrincipal.this, LoginFire.class);
         startActivity(intent);
         finish();

@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
+
+
     <application
         android:name=".core.Singleton"
         android:allowBackup="true"
@@ -13,9 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
-            android:name=".remote.LoginFire"
+            android:name=".remote.SplashActivity"
             android:label="@string/title_activity_main">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +24,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
         <activity
             android:name=".TelaMenu"
             android:label="@string/title_activity_tela_menu"
@@ -35,14 +34,15 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".TelaAgendar" />
         <activity android:name=".TelaBarbeiro" />
-            android:name=".model.DetaillActivity"
-            android:label="@string/title_activity_detaill"
-            android:theme="@style/AppTheme" />
+        android:name=".model.DetaillActivity"
+        android:label="@string/title_activity_detaill"
+        android:theme="@style/AppTheme" />
         <activity android:name=".TelaHorario" />
         <activity android:name=".remote.CadastroActivity" />
         <activity android:name=".remote.CadastroProdutos" />
-        <activity android:name=".remote.ProdutosActivity"></activity>
-        <activity android:name=".remote.ActivityPrincipal"></activity>
+        <activity android:name=".remote.ProdutosActivity" />
+        <activity android:name=".remote.ActivityPrincipal"/>
+        <activity android:name=".remote.LoginFire" />
     </application>
 
 </manifest>

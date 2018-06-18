@@ -3,6 +3,7 @@ package com.example.juniorsantos.barberapp.Entidades;
 import android.widget.Toast;
 
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
+import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.example.juniorsantos.barberapp.remote.CadastroProdutos;
 import com.google.firebase.database.DatabaseReference;
 
@@ -13,6 +14,7 @@ public class Produtos  {
 
     private String id;
     private String nome;
+    private String cliente;
     private String serviço;
     private String barbeiro;
     private String date;
@@ -44,9 +46,13 @@ public class Produtos  {
 
     }
 
+    public String getCliente() {
+        return DadosSingleton.getInstance().getUser().getEmail().toString();
+    }
 
-
-
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
 
     public String getId() {
         return id;
