@@ -1,7 +1,9 @@
 package com.example.juniorsantos.barberapp.remote;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -12,9 +14,12 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bluehomestudio.progresswindow.ProgressWindow;
+import com.bluehomestudio.progresswindow.ProgressWindowConfiguration;
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
 import com.example.juniorsantos.barberapp.Entidades.Usuarios;
 import com.example.juniorsantos.barberapp.R;
@@ -53,6 +58,8 @@ public class LoginFire extends AppCompatActivity {
 
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,14 +77,21 @@ public class LoginFire extends AppCompatActivity {
 
 
 
+
+
+
+
+
         btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (!edtEmail.getText().toString().equals("") && !edtSenha.getText().toString().equals("")) {
 
+
                     usuarios = new Usuarios();
                     usuarios.setEmail(edtEmail.getText().toString());
                     usuarios.setSenha(edtSenha.getText().toString());
+
 
                     validarLogin();
                 } else {
@@ -102,11 +116,8 @@ public class LoginFire extends AppCompatActivity {
 
     }
 
-
-
-
-
     private void validarLogin() {
+
 
 
 
@@ -121,12 +132,17 @@ public class LoginFire extends AppCompatActivity {
 
                 if (networkInfo != null && networkInfo.isConnected()){
 
+
                     if (task.isSuccessful()){
 
                         ConfiguracaoFirebase.getDadosCliente(usuarios.getEmail().toString() );
 
 
                         if(DadosSingleton.getInstance().getUser() != null){
+
+
+
+
                             Toast.makeText(LoginFire.this, "Seja Bem vindo " + DadosSingleton.getInstance().getUser().getNome().toString() , Toast.LENGTH_SHORT).show();
 
                             abrirTela();
@@ -151,13 +167,14 @@ public class LoginFire extends AppCompatActivity {
 
     private void abrirTela(){
 
-        Intent intentAbrirTela = new Intent(LoginFire.this, ActivityPrincipal.class);
+
+        Intent intentAbrirTela = new Intent(LoginFire.this, TelaMenu.class);
 
         startActivity(intentAbrirTela);
     }
 
     public void abreCadastroUsuario(){
-        Intent intent = new Intent(LoginFire.this, CadastroActivity.class);
+        Intent intent = new Intent(LoginFire.this, CadastroProdutos.class);
         startActivity(intent);
         finish();
 

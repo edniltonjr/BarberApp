@@ -1,16 +1,13 @@
 package com.example.juniorsantos.barberapp.Adapter;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.juniorsantos.barberapp.Entidades.Produtos;
+import com.example.juniorsantos.barberapp.Entidades.Agendamento;
 import com.example.juniorsantos.barberapp.R;
 
 import java.util.ArrayList;
@@ -21,12 +18,12 @@ import java.util.ArrayList;
  * Created by Daniel Lopes on 23/06/2017.
  */
 
-public class ProdutosAdapter extends ArrayAdapter<Produtos> {
+public class ProdutosAdapter extends ArrayAdapter<Agendamento> {
 
-    private ArrayList<Produtos> produto;
+    private ArrayList<Agendamento> produto;
     private Context context;
 
-    public ProdutosAdapter(Context c, ArrayList<Produtos> objects) {
+    public ProdutosAdapter(Context c, ArrayList<Agendamento> objects) {
         super(c, 0, objects);
 
         this.context = c;
@@ -48,10 +45,10 @@ public class ProdutosAdapter extends ArrayAdapter<Produtos> {
             TextView textViewValor = (TextView) view.findViewById(R.id.textViewValor);
             TextView textViewDate = (TextView) view.findViewById(R.id.textViewDate);
 
-            Produtos produtos2 = produto.get(position);
-            textViewNome.setText(produtos2.getNome());
-            textViewValor.setText(produtos2.getServiço().toString());
-            textViewDate.setText(produtos2.getDate().toString());
+            Agendamento agendamento2 = produto.get(position);
+            textViewNome.setText(agendamento2.getNome());
+            textViewValor.setText(agendamento2.getNome().toString());
+            textViewDate.setText(agendamento2.getDate().toString());
 
 
         }

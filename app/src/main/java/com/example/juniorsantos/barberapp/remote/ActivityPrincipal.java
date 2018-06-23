@@ -13,6 +13,7 @@ import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
 import com.example.juniorsantos.barberapp.Entidades.Usuarios;
 import com.example.juniorsantos.barberapp.Helper.PreferenciasAndroid;
 import com.example.juniorsantos.barberapp.R;
+import com.example.juniorsantos.barberapp.TelaMenu;
 import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.example.juniorsantos.barberapp.remote.CadastroProdutos;
 import com.google.firebase.auth.FirebaseAuth;
@@ -63,6 +64,8 @@ public class ActivityPrincipal extends AppCompatActivity {
             }
         });
 
+        teste.setText(DadosSingleton.getInstance().getUser().getNome().toString());
+
 
 
 
@@ -106,14 +109,14 @@ public class ActivityPrincipal extends AppCompatActivity {
     }
 
     private void verProdutos() {
-        Intent intent = new Intent(ActivityPrincipal.this, ProdutosActivity.class);
+        Intent intent = new Intent(ActivityPrincipal.this, TelaMenu.class);
         startActivity(intent);
 
         finish();
     }
 
     private void deslogarUsuario() {
-        DadosSingleton.getInstance().setUser(null);
+        DadosSingleton.getInstance().clearSingleton();
         usuarioFirebase.signOut();
         Intent intent = new Intent(ActivityPrincipal.this, LoginFire.class);
         startActivity(intent);

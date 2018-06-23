@@ -14,9 +14,16 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.juniorsantos.barberapp.core.BaseActivity;
+import com.example.juniorsantos.barberapp.core.DadosSingleton;
+import com.example.juniorsantos.barberapp.remote.ActivityPrincipal;
+import com.example.juniorsantos.barberapp.remote.CadastroProdutos;
+import com.example.juniorsantos.barberapp.remote.LoginFire;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class TelaMenu extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private FirebaseAuth usuarioFirebase;
 
 
 
@@ -103,6 +110,12 @@ public class TelaMenu extends BaseActivity
 
         } else if (id == R.id.nav_send) {
 
+            DadosSingleton.getInstance().clearSingleton();
+            usuarioFirebase.signOut();
+            Intent intent = new Intent(TelaMenu.this, LoginFire.class);
+            startActivity(intent);
+            finish();
+
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -112,7 +125,7 @@ public class TelaMenu extends BaseActivity
 
 
     public void testeAqui(View view){
-        Intent intent = new Intent(this, TelaAgendar.class);
+        Intent intent = new Intent(this, CadastroProdutos.class);
         //usuario salvo no Singleton
         startActivity(intent);
 }

@@ -6,15 +6,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.juniorsantos.barberapp.Entidades.Produtos;
+import com.example.juniorsantos.barberapp.Entidades.Agendamento;
 
 import java.util.List;
 
 public class SpinnerAdapter implements android.widget.SpinnerAdapter {
-    private List<Produtos> produtos;
+    private List<Agendamento> agendamentos;
 
-    public SpinnerAdapter(List<Produtos> produtos) {
-        this.produtos = produtos;
+    public SpinnerAdapter(List<Agendamento> produtos) {
+        this.agendamentos = produtos;
     }
 
     @Override
@@ -35,12 +35,12 @@ public class SpinnerAdapter implements android.widget.SpinnerAdapter {
 
     @Override
     public int getCount() {
-        return produtos.size();
+        return agendamentos.size();
     }
 
     @Override
-    public Produtos getItem(int position) {
-        return produtos.get(position);
+    public Agendamento getItem(int position) {
+        return agendamentos.get(position);
     }
 
     @Override
@@ -74,6 +74,6 @@ public class SpinnerAdapter implements android.widget.SpinnerAdapter {
 
     @Override
     public boolean isEmpty() {
-        return produtos.isEmpty();
+        return agendamentos.isEmpty();
     }
 }

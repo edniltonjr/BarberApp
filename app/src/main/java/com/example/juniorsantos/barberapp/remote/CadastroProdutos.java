@@ -1,40 +1,34 @@
 package com.example.juniorsantos.barberapp.remote;
 
 import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.juniorsantos.barberapp.Adapter.SpinnerAdapter;
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
-import com.example.juniorsantos.barberapp.Entidades.Produtos;
+import com.example.juniorsantos.barberapp.Entidades.Agendamento;
 import com.example.juniorsantos.barberapp.Entidades.Usuarios;
 import com.example.juniorsantos.barberapp.Helper.Base64Custom;
 import com.example.juniorsantos.barberapp.R;
+import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.example.juniorsantos.barberapp.dataloader.ProdutoDataloader;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
-import com.google.firebase.auth.FirebaseAuthUserCollisionException;
-import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -42,12 +36,13 @@ import java.util.List;
 public class CadastroProdutos extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
 
     private SpinnerAdapter spinnerAdapter;
-    private Spinner spinnerc;
+    private Spinner spinnerc, spinnerd;
     private ValueEventListener valueEventListenerProdutos;
-    private Button btnGravar, btnVoltarTelaInicial;
-    private EditText edtNome, edtServiço, edtHorario;
-    private Produtos produtos;
+    private Button btnGravar, btnVoltarTelaInicial, edtHorario, edtServiço;
+    private Agendamento agendamento;
+    private Agendamento agendamento2;
     private Usuarios usuarios;
+    private AlertDialog alerta;
     private DatabaseReference firebase;
     private int day,month,year,hour,minute;
     String nomeRecurso;
@@ -58,11 +53,11 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_produtos);
 
-        edtHorario = (EditText) findViewById(R.id.edtHorario);
-        edtNome = (EditText) findViewById(R.id.edtNome);
-        edtServiço = (EditText) findViewById(R.id.edtValor);
+        edtHorario = (Button) findViewById(R.id.edtHorario);
+        edtServiço = (Button) findViewById(R.id.edtValor);
         btnGravar = (Button) findViewById(R.id.btnGravar);
         spinnerc = (Spinner) findViewById(R.id.spinnerview2);
+        spinnerd = (Spinner) findViewById(R.id.spinnerview1);
         btnVoltarTelaInicial = (Button) findViewById(R.id.btnVoltarTelaInicial);
 
 
@@ -72,15 +67,51 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
 
         valueEventListenerProdutos = new ProdutoDataloader(new ProdutoDataloader.ProdutoDataListener() {
             @Override
-            public void onProdutoLoaded(List<Produtos> list) {
-                spinnerc.setAdapter(new SpinnerAdapter(list));
+            public void onProdutoLoaded(List<Agendamento> teste) {
+
+                List<Agendamento> padrao = new ArrayList<Agendamento>(); //CRIEI UMA NOVA LISTA AQUI
+                List<Agendamento> serv = new ArrayList<Agendamento>();
+
+                Agendamento serv1 = new Agendamento();
+                Agendamento serv2 = new Agendamento();
+                Agendamento serv3 = new Agendamento();
+
+                Agendamento agendamento1 = new Agendamento(); //CRIEI UM NOVO OBJETO
+
+                serv1.setNome("Selecione o Serviço");
+                serv2.setNome("Barba");
+                serv3.setNome("Cabelo");
+                serv.add(serv1);
+                serv.add(serv2);
+                serv.add(serv3);
+
+
+                agendamento1.setNome("Selecione o Barbeiro"); //SETEI OS DADOS;
+                padrao.add(agendamento1); //ADCIONEI O DADO NA LISTA
+
+                padrao.addAll(teste); //JUNTEI AS DUAS LISTAS
+
+
+                spinnerd.setAdapter(new SpinnerAdapter(serv)); //CARREGA O SPINNER DE SERVIÇO
+
+
+                spinnerc.setAdapter(new SpinnerAdapter(padrao)); //CARREGA O SPINNER DE BARBEIROS
+
+
+
 
             }
 
 
 
-
         });
+
+
+
+
+
+
+
 
 
 
@@ -113,35 +144,86 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
 
         });
 
+        edtServiço.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(CadastroProdutos.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        edtServiço.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);//Yes 24 hour time
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+            }
+        });
+
+
 
 
 
 
         btnGravar.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View view) {
 
 
-                produtos = new Produtos();
 
 
-                produtos.setNome(edtNome.getText().toString());
-                produtos.setServiço(edtServiço.getText().toString());
-                produtos.setDate(edtHorario.getText().toString());
-                String nomeBarbeiro = ((Produtos) spinnerc.getSelectedItem()).getNome();
-                produtos.setBarbeiro(nomeBarbeiro);
-                produtos.setCliente(produtos.getCliente());
-                String idenficadorUsuario = Base64Custom.codificarBase64(produtos.getNome());
-                produtos.setId(idenficadorUsuario);
-                if (produtos.salvar(produtos) == true){
+                agendamento = new Agendamento();
 
-                    Toast.makeText(CadastroProdutos.this, "Produto inserido com sucesso", Toast.LENGTH_LONG).show();
+
+
+
+
+                String nomeServ = ((Agendamento) spinnerd.getSelectedItem()).getNome();
+                agendamento.setNome(nomeServ);
+                agendamento.setHorario(edtServiço.getText().toString());
+                agendamento.setDate(edtHorario.getText().toString());
+                String nomeBarbeiro = ((Agendamento) spinnerc.getSelectedItem()).getNome();
+                agendamento.setBarbeiro(nomeBarbeiro);
+                agendamento.setCliente(agendamento.getCliente());
+                String idenficadorUsuario = Base64Custom.codificarBase64(agendamento.getNome());
+                agendamento.setIdUsuario(idenficadorUsuario);
+
+                if(agendamento.getNome() == "Selecione o Serviço")
+                {
+                    Toast.makeText(CadastroProdutos.this, "Selecione um Serviço para continuar!", Toast.LENGTH_LONG).show();
 
                 }
+
 
                 else{
-                    Toast.makeText(CadastroProdutos.this, "Erro ao inserir produto", Toast.LENGTH_LONG).show();
+
+                    if (agendamento.salvar(agendamento) == true){
+
+           // PARA TESTE             System.out.println(DadosSingleton.getInstance().getAgen().getIdUsuario().toString());
+
+
+                        testando();
+                    }
+
+                    else{
+                        Toast.makeText(CadastroProdutos.this, "Erro ao inserir produto", Toast.LENGTH_LONG).show();
+                    }
+
                 }
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -152,6 +234,7 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
 
             }
         });
+
 
 
 
@@ -207,6 +290,32 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
         }
 
 
+    }
+
+    private void testando() {
+        //Cria o gerador do AlertDialog
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        //define o titulo
+        builder.setTitle("Agendamento");
+        //define a mensagem
+        builder.setMessage("Data:  " + agendamento.getDate() + " \n\rServiço: " + agendamento.getNome() + "\n\rBarbeiro: " + agendamento.getBarbeiro() + "\n\rHorário: " + agendamento.getHorario());
+
+        //define um botão como positivo
+        builder.setPositiveButton("Agendar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                Toast.makeText(CadastroProdutos.this, "Agendamento com Sucesso", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //define um botão como negativo.
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface arg0, int arg1) {
+                Toast.makeText(CadastroProdutos.this, "", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //cria o AlertDialog
+        alerta = builder.create();
+        //Exibe
+        alerta.show();
     }
 
 

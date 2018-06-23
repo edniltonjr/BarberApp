@@ -28,6 +28,7 @@ public class TelaBarbeiro extends BaseActivity {
 
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         usuario = new Usuario();

@@ -9,13 +9,14 @@ import java.util.Map;
 
 public class Usuarios {
 
-    private String id;
+    private String idUsuario;
     private String email;
     private String senha;
     private String nome;
     private String sobrenome;
     private String aniversario;
     private String sexo;
+    private String cpf;
 
     public Usuarios() {
     }
@@ -38,6 +39,7 @@ public class Usuarios {
         hashMapUsuario.put("nome", getNome());
         hashMapUsuario.put("sobrenome", getSobrenome());
         hashMapUsuario.put("aniversario", getAniversario());
+        hashMapUsuario.put("cpf", getCpf());
         hashMapUsuario.put("sexo", getSexo());
 
         return hashMapUsuario;
@@ -45,11 +47,11 @@ public class Usuarios {
     }
 
     public String getId() {
-        return id;
+        return idUsuario;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.idUsuario = idUsuario;
     }
 
     public String getEmail() {
@@ -74,6 +76,14 @@ public class Usuarios {
 
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
     }
 
     public String getSobrenome() {

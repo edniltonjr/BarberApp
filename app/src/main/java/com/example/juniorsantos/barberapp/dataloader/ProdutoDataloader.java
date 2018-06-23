@@ -1,10 +1,8 @@
 package com.example.juniorsantos.barberapp.dataloader;
 
 import android.util.Log;
-import android.view.View;
-import android.widget.AdapterView;
 
-import com.example.juniorsantos.barberapp.Entidades.Produtos;
+import com.example.juniorsantos.barberapp.Entidades.Agendamento;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -28,10 +26,10 @@ public class ProdutoDataloader implements ValueEventListener {
     @Override
     public void onDataChange(DataSnapshot dataSnapshot) {
         Iterator<DataSnapshot> iterador = dataSnapshot.getChildren().iterator();
-        List<Produtos> produtos = new ArrayList<>();
+        List<Agendamento> produtos = new ArrayList<>();
         while (iterador.hasNext()) {
             DataSnapshot data = iterador.next();
-            Produtos p = data.getValue(Produtos.class);
+            Agendamento p = data.getValue(Agendamento.class);
             produtos.add(p);
         }
 
@@ -47,8 +45,9 @@ public class ProdutoDataloader implements ValueEventListener {
      * Listener de callback da chamada do firebase
      */
     public interface ProdutoDataListener {
-        void onProdutoLoaded(List<Produtos> list);
+        void onProdutoLoaded(List<Agendamento> list);
     }
+
 
 
 
