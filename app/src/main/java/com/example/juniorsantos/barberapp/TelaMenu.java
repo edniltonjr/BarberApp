@@ -18,6 +18,7 @@ import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.example.juniorsantos.barberapp.remote.ActivityPrincipal;
 import com.example.juniorsantos.barberapp.remote.CadastroProdutos;
 import com.example.juniorsantos.barberapp.remote.LoginFire;
+import com.example.juniorsantos.barberapp.remote.MainActivity;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class TelaMenu extends BaseActivity
@@ -130,4 +131,10 @@ public class TelaMenu extends BaseActivity
         startActivity(intent);
 }
 
+public void testeAqui2(View view){
+
+    Intent intent = new Intent(this, MainActivity.class);
+    startActivity(intent);
+
+}
 }

@@ -3,10 +3,8 @@ package com.example.juniorsantos.barberapp.Entidades;
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
 import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.Exclude;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class Agendamento {
 
@@ -21,6 +19,7 @@ public class Agendamento {
     private String status; //OB
     private String barbeiro;
     private String date; //OB
+    private String nomeCliente;
 
 
     public Agendamento() {
@@ -34,7 +33,7 @@ public class Agendamento {
             referenciaFirebase.child("agendamento").child(String.valueOf(getIdAgendamento())).setValue(this);
 
             referenciaFirebase = ConfiguracaoFirebase.getFirebase().child("agendamento");
-            referenciaFirebase.child(agendamento.getNome()).setValue(agendamento);
+            referenciaFirebase.child(agendamento.getIdAgendamento()).setValue(agendamento);
             return true;
 
         }
@@ -51,23 +50,13 @@ public class Agendamento {
     }
 
 
-    @Exclude
-
-    public Map<String, Object> toMap(){
-        HashMap<String, Object> hashMapUsuario = new HashMap<>();
-
-        hashMapUsuario.put("idAgendamento", getIdAgendamento());
-        hashMapUsuario.put("idUsuario", getIdUsuario());
-        hashMapUsuario.put("idBarbeiro", getIdBarbeiro());
-        hashMapUsuario.put("idServ", getIdServ());
-        hashMapUsuario.put("horario", getHorario());
-        hashMapUsuario.put("status", getStatus());
-        hashMapUsuario.put("date", getDate());
-
-        return hashMapUsuario;
-
+    public String getNomeCliente() {
+        return nomeCliente;
     }
 
+    public void setNomeCliente(String nomeCliente) {
+        this.nomeCliente = nomeCliente;
+    }
 
     public String getIdAgendamento() {
         return idAgendamento;
@@ -78,7 +67,6 @@ public class Agendamento {
     }
 
     public String getIdUsuario() {
-       // return DadosSingleton.getInstance().getUser().getNome().toString();
         return idUsuario;
     }
 
@@ -102,15 +90,6 @@ public class Agendamento {
         this.idServ = idServ;
     }
 
-    public String getCliente() {
-        return DadosSingleton.getInstance().getUser().getEmail().toString();
-    }
-
-    public void setCliente(String cliente) {
-        this.cliente = cliente;
-    }
-
-
 
     public String getDate() {
         return date;
@@ -123,8 +102,10 @@ public class Agendamento {
     public String getHorario() {
         return horario;
     }
-    public void setHorario(String serviço) {
-        this.horario = serviço;
+
+
+    public void setHorario(String serv) {
+        this.horario = serv;
     }
 
     public String getBarbeiro() {

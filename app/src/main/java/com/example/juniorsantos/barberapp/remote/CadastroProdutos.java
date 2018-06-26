@@ -20,12 +20,16 @@ import android.widget.Toast;
 import com.example.juniorsantos.barberapp.Adapter.SpinnerAdapter;
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
 import com.example.juniorsantos.barberapp.Entidades.Agendamento;
+import com.example.juniorsantos.barberapp.Entidades.Serv;
 import com.example.juniorsantos.barberapp.Entidades.Usuarios;
 import com.example.juniorsantos.barberapp.Helper.Base64Custom;
 import com.example.juniorsantos.barberapp.R;
 import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.example.juniorsantos.barberapp.dataloader.ProdutoDataloader;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -38,8 +42,10 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
     private SpinnerAdapter spinnerAdapter;
     private Spinner spinnerc, spinnerd;
     private ValueEventListener valueEventListenerProdutos;
-    private Button btnGravar, btnVoltarTelaInicial, edtHorario, edtServiço;
+    private Button btnGravar, btnVoltarTelaInicial, edtHorario, edtServiço, btnTeste;
     private Agendamento agendamento;
+    private Serv serv;
+    private EditText edtTeste, edtTeste2;
     private Agendamento agendamento2;
     private Usuarios usuarios;
     private AlertDialog alerta;
@@ -52,6 +58,12 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_produtos);
+
+
+
+
+
+
 
         edtHorario = (Button) findViewById(R.id.edtHorario);
         edtServiço = (Button) findViewById(R.id.edtValor);
@@ -105,6 +117,37 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
 
 
         });
+
+        /* //METODO QUE ADCIONA SERVIÇOS
+
+        btnTeste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                serv = new Serv();
+
+             String idenficadorServ = Base64Custom.codificarBase64(serv.getNomeServ());
+              agendamento.setIdServ(idenficadorServ);
+                serv.setNomeServ(edtTeste.getText().toString());
+                serv.setIdServ(edtTeste2.getText().toString());
+
+
+                if (serv.salvarServ(serv) == true){
+
+                    Toast.makeText(CadastroProdutos.this, "Serviço salvo com Sucesso", Toast.LENGTH_SHORT).show();
+                    finish();
+
+                }
+
+            }
+        });
+
+         */
+
+
+
+
+
 
 
 
@@ -172,10 +215,6 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
 
             @Override
             public void onClick(View view) {
-
-
-
-
                 agendamento = new Agendamento();
 
 
@@ -188,43 +227,36 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
                 agendamento.setDate(edtHorario.getText().toString());
                 String nomeBarbeiro = ((Agendamento) spinnerc.getSelectedItem()).getNome();
                 agendamento.setBarbeiro(nomeBarbeiro);
-                agendamento.setCliente(agendamento.getCliente());
-                String idenficadorUsuario = Base64Custom.codificarBase64(agendamento.getNome());
+                String idenficadorUsuario = Base64Custom.codificarBase64(DadosSingleton.getInstance().getUser().getEmail());
                 agendamento.setIdUsuario(idenficadorUsuario);
+                String nomeUsuario = DadosSingleton.getInstance().getUser().getNome();
+               agendamento.setNomeCliente(nomeUsuario);
 
-                if(agendamento.getNome() == "Selecione o Serviço")
-                {
-                    Toast.makeText(CadastroProdutos.this, "Selecione um Serviço para continuar!", Toast.LENGTH_LONG).show();
-
-                }
+    //            String firebaseHorario = String.valueOf(FirebaseDatabase.getInstance().getReference("agendamento").child(identificadorAgend).child("horario"));
 
 
-                else{
-
-                    if (agendamento.salvar(agendamento) == true){
-
-           // PARA TESTE             System.out.println(DadosSingleton.getInstance().getAgen().getIdUsuario().toString());
+                String identificadorAgend = Base64Custom.codificarBase64(agendamento.getHorario());
+                agendamento.setIdAgendamento(identificadorAgend);
 
 
-                        testando();
+                FirebaseDatabase.getInstance().getReference("agendamento").child(identificadorAgend).child("horario").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        if (dataSnapshot.exists()){
+                            Toast.makeText(CadastroProdutos.this, "Horário não disponível! Tente outro Horário", Toast.LENGTH_LONG).show();
+                        }
+
+                        else{
+                            agendar();
+                        }
+
                     }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-                    else{
-                        Toast.makeText(CadastroProdutos.this, "Erro ao inserir produto", Toast.LENGTH_LONG).show();
                     }
-
-                }
-
-
-
-
-
-
-
-
-
-
-
+                });
 
 
 
@@ -292,7 +324,7 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
 
     }
 
-    private void testando() {
+    private void agendar() {
         //Cria o gerador do AlertDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         //define o titulo
@@ -303,7 +335,31 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
         //define um botão como positivo
         builder.setPositiveButton("Agendar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
-                Toast.makeText(CadastroProdutos.this, "Agendamento com Sucesso", Toast.LENGTH_SHORT).show();
+
+                if (agendamento.salvar(agendamento) == true) {
+
+                    Toast.makeText(CadastroProdutos.this, "Agendamento com Sucesso", Toast.LENGTH_SHORT).show();
+                }
+
+
+
+
+                    //  if (agendamento.getDate() == ""  || agendamento.getNome() == "Selecione o Serviço"  || agendamento.getBarbeiro() == "Selecione o Barbeiro" ||
+                    //                      agendamento.getHorario() == ""){
+
+                    //               Toast.makeText(CadastroProdutos.this, "Algum dado não foi preenchido!", Toast.LENGTH_LONG).show();
+                    //           }
+                    //         else{
+
+                    //           Toast.makeText(CadastroProdutos.this, "Agendamento com Sucesso", Toast.LENGTH_SHORT).show();
+
+                    //         }
+
+
+
+
+
+
             }
         });
         //define um botão como negativo.

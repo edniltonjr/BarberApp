@@ -174,7 +174,7 @@ public class LoginFire extends AppCompatActivity {
     }
 
     public void abreCadastroUsuario(){
-        Intent intent = new Intent(LoginFire.this, CadastroProdutos.class);
+        Intent intent = new Intent(LoginFire.this, CadastroActivity.class);
         startActivity(intent);
         finish();
 
@@ -188,4 +188,4 @@ public class LoginFire extends AppCompatActivity {
 
 
 
-    }
+}
