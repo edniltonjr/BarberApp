@@ -20,6 +20,8 @@ public class Agendamento {
     private String barbeiro;
     private String date; //OB
     private String nomeCliente;
+    private String imageCliente;
+    private String imgStatus;
 
 
     public Agendamento() {
@@ -49,6 +51,30 @@ public class Agendamento {
 
     }
 
+
+    public String getImgStatus() {
+        return imgStatus;
+    }
+
+    public void setImgStatus(String imgStatus) {
+        this.imgStatus = imgStatus;
+    }
+
+    public String getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public String getImageCliente() {
+        return imageCliente;
+    }
+
+    public void setImageCliente(String imageCliente) {
+        this.imageCliente = imageCliente;
+    }
 
     public String getNomeCliente() {
         return nomeCliente;
@@ -145,3 +171,4 @@ public class Agendamento {
 
 
 }
+

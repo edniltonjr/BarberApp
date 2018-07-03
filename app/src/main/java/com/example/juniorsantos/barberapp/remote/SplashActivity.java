@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
 import com.example.juniorsantos.barberapp.Helper.PreferenciasAndroid;
 import com.example.juniorsantos.barberapp.R;
+import com.example.juniorsantos.barberapp.TelaMenu;
 import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -38,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
 
                     if(DadosSingleton.getInstance().getUser() != null){
 
-                        startActivity(new Intent(SplashActivity.this, ActivityPrincipal.class));
+                        startActivity(new Intent(SplashActivity.this, TelaMenu.class));
                     }else {
                         mostrarLogin();
                     }
@@ -62,3 +63,4 @@ public class SplashActivity extends AppCompatActivity {
 
 
 }
+

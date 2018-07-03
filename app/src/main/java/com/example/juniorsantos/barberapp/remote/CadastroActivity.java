@@ -15,6 +15,7 @@ import com.example.juniorsantos.barberapp.Entidades.Usuarios;
 import com.example.juniorsantos.barberapp.Helper.Base64Custom;
 import com.example.juniorsantos.barberapp.Helper.PreferenciasAndroid;
 import com.example.juniorsantos.barberapp.R;
+import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -69,6 +70,8 @@ public class CadastroActivity extends AppCompatActivity {
                     usuarios.setSenha(edtCadSenha.getText().toString());
                     usuarios.setAniversario(edtCadAniversario.getText().toString());
 
+
+
                     if(rbMasculino.isChecked()){
                         usuarios.setSexo("Masculino");
                     }
@@ -115,10 +118,11 @@ public class CadastroActivity extends AppCompatActivity {
                     String idenficadorUsuario = Base64Custom.codificarBase64(usuarios.getEmail());
                     FirebaseUser usuarioFirebase = task.getResult().getUser();
                     usuarios.setId(idenficadorUsuario);
+                    usuarios.setImg("https://cdn.icon-icons.com/icons2/1097/PNG/512/1485477097-avatar_78580.png");
                     usuarios.salvar();
 
                     PreferenciasAndroid preferenciasAndroid = new PreferenciasAndroid((CadastroActivity.this));
-                    preferenciasAndroid.salvarUsuarioPreferencias(idenficadorUsuario, usuarios.getNome());
+                    preferenciasAndroid.salvarUsuarioPreferencias(idenficadorUsuario, usuarios.getId());
 
                     abrirLoginUsuario();
 

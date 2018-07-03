@@ -24,6 +24,7 @@ import com.example.juniorsantos.barberapp.Entidades.Serv;
 import com.example.juniorsantos.barberapp.Entidades.Usuarios;
 import com.example.juniorsantos.barberapp.Helper.Base64Custom;
 import com.example.juniorsantos.barberapp.R;
+import com.example.juniorsantos.barberapp.TelaMenu;
 import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.example.juniorsantos.barberapp.dataloader.ProdutoDataloader;
 import com.google.firebase.database.DataSnapshot;
@@ -119,29 +120,20 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
         });
 
         /* //METODO QUE ADCIONA SERVIÇOS
-
         btnTeste.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 serv = new Serv();
-
              String idenficadorServ = Base64Custom.codificarBase64(serv.getNomeServ());
               agendamento.setIdServ(idenficadorServ);
                 serv.setNomeServ(edtTeste.getText().toString());
                 serv.setIdServ(edtTeste2.getText().toString());
-
-
                 if (serv.salvarServ(serv) == true){
-
                     Toast.makeText(CadastroProdutos.this, "Serviço salvo com Sucesso", Toast.LENGTH_SHORT).show();
                     finish();
-
                 }
-
             }
         });
-
          */
 
 
@@ -229,10 +221,14 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
                 agendamento.setBarbeiro(nomeBarbeiro);
                 String idenficadorUsuario = Base64Custom.codificarBase64(DadosSingleton.getInstance().getUser().getEmail());
                 agendamento.setIdUsuario(idenficadorUsuario);
+                agendamento.setStatus("AGENDADO");
                 String nomeUsuario = DadosSingleton.getInstance().getUser().getNome();
-               agendamento.setNomeCliente(nomeUsuario);
+                agendamento.setNomeCliente(nomeUsuario);
+                String imageUsuario = DadosSingleton.getInstance().getUser().getImg();
+                agendamento.setImageCliente(imageUsuario);
+                agendamento.setImgStatus("https://image.freepik.com/fotos-gratis/blur-abstract-bokeh-light-background-preto-e-branco-tom-monocromatico_7190-592.jpg");
 
-    //            String firebaseHorario = String.valueOf(FirebaseDatabase.getInstance().getReference("agendamento").child(identificadorAgend).child("horario"));
+                //            String firebaseHorario = String.valueOf(FirebaseDatabase.getInstance().getReference("agendamento").child(identificadorAgend).child("horario"));
 
 
                 String identificadorAgend = Base64Custom.codificarBase64(agendamento.getHorario());
@@ -300,7 +296,7 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
 
 
     private void voltarTelaInicial() {
-        Intent intent = new Intent(CadastroProdutos.this, ActivityPrincipal.class);
+        Intent intent = new Intent(CadastroProdutos.this, TelaMenu.class);
         startActivity(intent);
         finish();
     }
@@ -344,16 +340,16 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
 
 
 
-                    //  if (agendamento.getDate() == ""  || agendamento.getNome() == "Selecione o Serviço"  || agendamento.getBarbeiro() == "Selecione o Barbeiro" ||
-                    //                      agendamento.getHorario() == ""){
+                //  if (agendamento.getDate() == ""  || agendamento.getNome() == "Selecione o Serviço"  || agendamento.getBarbeiro() == "Selecione o Barbeiro" ||
+                //                      agendamento.getHorario() == ""){
 
-                    //               Toast.makeText(CadastroProdutos.this, "Algum dado não foi preenchido!", Toast.LENGTH_LONG).show();
-                    //           }
-                    //         else{
+                //               Toast.makeText(CadastroProdutos.this, "Algum dado não foi preenchido!", Toast.LENGTH_LONG).show();
+                //           }
+                //         else{
 
-                    //           Toast.makeText(CadastroProdutos.this, "Agendamento com Sucesso", Toast.LENGTH_SHORT).show();
+                //           Toast.makeText(CadastroProdutos.this, "Agendamento com Sucesso", Toast.LENGTH_SHORT).show();
 
-                    //         }
+                //         }
 
 
 

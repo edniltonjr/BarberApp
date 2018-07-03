@@ -3,12 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="16dp"
-    android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
-    android:layout_marginTop="16dp"
+    android:background="@drawable/pngagend"
     android:orientation="vertical"
     tools:context=".remote.CadastroProdutos">
+
+    <TextView
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="30dp"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:background="@drawable/agendamento"/>
 
 
     <Button
@@ -34,7 +40,6 @@
         android:layout_width="match_parent"
         android:layout_height="41dp"
         android:layout_centerInParent="true"
-        android:visibility="visible"
         android:gravity="center"
         android:textAlignment="center"
         ></Spinner>
@@ -57,18 +62,28 @@
 
 
     <Button
+
+        android:background="@drawable/agendar"
         android:id="@+id/btnGravar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Agendar" />
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:textAlignment="center" />
+
+
+        />
 
     <Button
         android:id="@+id/btnVoltarTelaInicial"
-        android:layout_width="match_parent"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/voltar"
         android:gravity="center"
-        android:textAlignment="center"
-        android:layout_height="wrap_content"
-        android:text="VOLTAR TELA INICIAL" />
+        android:layout_gravity="center"
+        android:textAlignment="center" />
 
 
 

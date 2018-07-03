@@ -1,6 +1,7 @@
 package com.example.juniorsantos.barberapp;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -12,19 +13,24 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 
+import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
 import com.example.juniorsantos.barberapp.core.BaseActivity;
 import com.example.juniorsantos.barberapp.core.DadosSingleton;
-import com.example.juniorsantos.barberapp.remote.ActivityPrincipal;
 import com.example.juniorsantos.barberapp.remote.CadastroProdutos;
 import com.example.juniorsantos.barberapp.remote.LoginFire;
 import com.example.juniorsantos.barberapp.remote.MainActivity;
+import com.example.juniorsantos.barberapp.remote.TelaLocaliza;
+import com.example.juniorsantos.barberapp.remote.TelaServicos;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class TelaMenu extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private FirebaseAuth usuarioFirebase;
+    private Uri photoUrl;
+    private ImageView mPic;
 
 
 
@@ -34,7 +40,14 @@ public class TelaMenu extends BaseActivity
         setContentView(R.layout.tela_menu);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+
+
+
         setSupportActionBar(toolbar);
+
+
+
 
         //singleton
 
@@ -56,7 +69,19 @@ public class TelaMenu extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
+
+
+
+
+
+
+
+
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -92,9 +117,12 @@ public class TelaMenu extends BaseActivity
 
 
 
+
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
+
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
@@ -105,17 +133,32 @@ public class TelaMenu extends BaseActivity
 
         } else if (id == R.id.nav_slideshow) {
 
+
+
         } else if (id == R.id.nav_manage) {
+
+
 
         } else if (id == R.id.nav_share) {
 
+            Intent intent = new Intent(TelaMenu.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+
+
+
+
+
         } else if (id == R.id.nav_send) {
+
+            usuarioFirebase = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
             DadosSingleton.getInstance().clearSingleton();
             usuarioFirebase.signOut();
             Intent intent = new Intent(TelaMenu.this, LoginFire.class);
             startActivity(intent);
             finish();
+
 
         }
 
@@ -129,12 +172,22 @@ public class TelaMenu extends BaseActivity
         Intent intent = new Intent(this, CadastroProdutos.class);
         //usuario salvo no Singleton
         startActivity(intent);
-}
+    }
 
-public void testeAqui2(View view){
+    public void testeAqui2(View view){
 
-    Intent intent = new Intent(this, MainActivity.class);
-    startActivity(intent);
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
 
-}
+    }
+
+    public void testeAqui3(View view){
+        Intent intent = new Intent(this, TelaLocaliza.class);
+        startActivity(intent);
+    }
+
+    public void testeAqui4(View view){
+        Intent intent = new Intent(this, TelaServicos.class);
+        startActivity(intent);
+    }
 }

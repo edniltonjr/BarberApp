@@ -1,6 +1,8 @@
 package com.example.juniorsantos.barberapp.Entidades;
 
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
+import com.example.juniorsantos.barberapp.core.DadosSingleton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.Exclude;
 
@@ -17,6 +19,8 @@ public class Usuarios {
     private String aniversario;
     private String sexo;
     private String cpf;
+    private String img;
+
 
     public Usuarios() {
     }
@@ -24,6 +28,13 @@ public class Usuarios {
     public void salvar(){
         DatabaseReference referenciaFirebase = ConfiguracaoFirebase.getFirebase();
         referenciaFirebase.child("usuario").child(String.valueOf(getId())).setValue(this);
+
+//        FirebaseAuth fbAuth = FirebaseAuth.getInstance.getReference;
+//        String idUsuario = fbAuth.getUser.getUID;
+
+
+
+
     }
 
 
@@ -51,7 +62,23 @@ public class Usuarios {
     }
 
     public void setId(String id) {
+        this.idUsuario = id;
+    }
+
+    public String getIdUsuario() {
+        return idUsuario;
+    }
+
+    public void setIdUsuario(String idUsuario) {
         this.idUsuario = idUsuario;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
 
     public String getEmail() {

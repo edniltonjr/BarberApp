@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/pngcadastro"
     tools:context=".remote.CadastroActivity">
 
     <ScrollView
@@ -18,20 +19,27 @@
 
 
 
+
             <EditText
+
+                android:layout_marginTop="130dp"
+
                 android:id="@+id/edtCadNome"
                 android:layout_width="match_parent"
                 android:hint="Seu Nome:"
+                android:background="@drawable/barra"
                 android:inputType="textCapCharacters"
                 android:layout_height="wrap_content"
 
                 />
+
 
             <EditText
                 android:id="@+id/edtCadSobrenome"
                 android:layout_width="match_parent"
                 android:hint="Sobrenome:"
                 android:inputType="textCapCharacters"
+                android:background="@drawable/barra"
                 android:layout_height="wrap_content"
 
                 />
@@ -40,6 +48,7 @@
                 android:id="@+id/edtCadAniversario"
                 android:layout_width="match_parent"
                 android:hint="Aniversário:"
+                android:background="@drawable/barra"
                 android:inputType="date"
                 android:layout_height="wrap_content"
 
@@ -48,6 +57,7 @@
             <EditText
                 android:id="@+id/edtCadEmail"
                 android:layout_width="match_parent"
+                android:background="@drawable/barra"
                 android:hint="E-mail:"
                 android:inputType="textEmailAddress"
                 android:layout_height="wrap_content"
@@ -57,6 +67,7 @@
             <EditText
                 android:id="@+id/edtCadSenha"
                 android:layout_width="match_parent"
+                android:background="@drawable/barra"
                 android:hint="Senha:"
                 android:inputType="textPassword"
                 android:layout_height="wrap_content"
@@ -65,6 +76,7 @@
 
             <EditText
                 android:id="@+id/edtCadConfirmarSenha"
+                android:background="@drawable/barra"
                 android:layout_width="match_parent"
                 android:hint="Confirme sua Senha:"
                 android:inputType="textPassword"
@@ -88,25 +100,29 @@
                     android:checked="true"
                     android:text="Masculino"
                     android:textAllCaps="false"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/cardview_light_background"
                     android:textColorHint="@color/colorPrimary"
-                    android:textColorLink="@android:color/black"
+                    android:textColorLink="#ffffff"
                     android:textCursorDrawable="@android:color/holo_blue_bright" />
-                
+
                 <RadioButton
-                    android:layout_width="wrap_content"
                     android:id="@+id/rbFeminino"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="Feminino"
-                    android:layout_height="wrap_content" />
+                    android:textColor="@android:color/background_light"
+                    android:textColorLink="@android:color/background_light" />
 
 
             </RadioGroup>
 
             <Button
                 android:id="@+id/btnGravar"
-                android:layout_width="match_parent"
-                android:text="Gravar"
-                android:layout_height="wrap_content" />
+                android:layout_width="180dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/gravar"
+                android:layout_height="40dp" />
 
 
 
