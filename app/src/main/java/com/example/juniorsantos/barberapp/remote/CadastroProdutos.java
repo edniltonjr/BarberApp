@@ -55,6 +55,7 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
     String nomeRecurso;
     private int dayFinal,monthFinal,yearFinal,hourFinal,minuteFinal;
     CalendarView calendario;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -207,11 +208,93 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
 
             @Override
             public void onClick(View view) {
+
+                FirebaseDatabase.getInstance().getReference("agendamento").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                        List<Agendamento> listaAgedametos = new ArrayList();
+                        for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                             Agendamento agendamento = postSnapshot.getValue(Agendamento.class);
+                            listaAgedametos.add(agendamento);
+                        }
+
+
+
+                        boolean horarioLivre = true;
+
+
+
+                        for(Agendamento agendamento : listaAgedametos ){
+                            if(agendamento.getHorario().contains(edtServiço.getText().toString())){
+                                horarioLivre = false;
+                            }
+                        }
+
+
+                        if (!horarioLivre){
+                            Toast.makeText(CadastroProdutos.this, "Horário não disponível! Tente outro Horário",    Toast.LENGTH_LONG).show();
+                        }
+
+                        else{
+                            agendamento = new Agendamento();
+                            String nomeServ = ((Agendamento) spinnerd.getSelectedItem()).getNome();
+                            agendamento.setNome(nomeServ);
+                            agendamento.setHorario(edtServiço.getText().toString());
+                            agendamento.setDate(edtHorario.getText().toString());
+                            String nomeBarbeiro = ((Agendamento) spinnerc.getSelectedItem()).getNome();
+                            agendamento.setBarbeiro(nomeBarbeiro);
+                            String idenficadorUsuario = Base64Custom.codificarBase64(DadosSingleton.getInstance().getUser().getEmail());
+                            agendamento.setIdUsuario(idenficadorUsuario);
+                            agendamento.setStatus("AGENDADO");
+                            String nomeUsuario = DadosSingleton.getInstance().getUser().getNome();
+                            agendamento.setNomeCliente(nomeUsuario);
+                            String imageUsuario = DadosSingleton.getInstance().getUser().getImg();
+                            agendamento.setImageCliente(imageUsuario);
+                            agendamento.setImgStatus("https://image.freepik.com/fotos-gratis/blur-abstract-bokeh-light-background-preto-e-branco-tom-monocromatico_7190-592.jpg");
+                            String identificadorAgend = Base64Custom.codificarBase64(agendamento.getHorario());
+                            agendamento.setIdAgendamento(identificadorAgend);
+                            agendar();
+                        }
+
+
+
+
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
+/*
+                FirebaseDatabase.getInstance().getReference("agendamento").child(agendamento.getIdAgendamento()).child("horario").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                        if (dataSnapshot.exists()){
+                            Toast.makeText(CadastroProdutos.this, "Horário não disponível! Tente outro Horário",    Toast.LENGTH_LONG).show();
+                        }
+
+                        else{
+                            agendar();
+                        }
+
+                    }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+
+
+
                 agendamento = new Agendamento();
-
-
-
-
 
                 String nomeServ = ((Agendamento) spinnerd.getSelectedItem()).getNome();
                 agendamento.setNome(nomeServ);
@@ -227,34 +310,13 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
                 String imageUsuario = DadosSingleton.getInstance().getUser().getImg();
                 agendamento.setImageCliente(imageUsuario);
                 agendamento.setImgStatus("https://image.freepik.com/fotos-gratis/blur-abstract-bokeh-light-background-preto-e-branco-tom-monocromatico_7190-592.jpg");
-
-                //            String firebaseHorario = String.valueOf(FirebaseDatabase.getInstance().getReference("agendamento").child(identificadorAgend).child("horario"));
-
-
                 String identificadorAgend = Base64Custom.codificarBase64(agendamento.getHorario());
                 agendamento.setIdAgendamento(identificadorAgend);
 
 
-                FirebaseDatabase.getInstance().getReference("agendamento").child(identificadorAgend).child("horario").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        if (dataSnapshot.exists()){
-                            Toast.makeText(CadastroProdutos.this, "Horário não disponível! Tente outro Horário", Toast.LENGTH_LONG).show();
-                        }
-
-                        else{
-                            agendar();
-                        }
-
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
 
 
+*/
 
 
 
