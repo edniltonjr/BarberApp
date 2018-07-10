@@ -69,6 +69,7 @@ public class CadastroActivity extends AppCompatActivity {
                     usuarios.setEmail(edtCadEmail.getText().toString());
                     usuarios.setSenha(edtCadSenha.getText().toString());
                     usuarios.setAniversario(edtCadAniversario.getText().toString());
+                    usuarios.setTipo("1");
 
 
 

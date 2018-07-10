@@ -20,6 +20,7 @@ public class Usuarios {
     private String sexo;
     private String cpf;
     private String img;
+    private String tipo;
 
 
     public Usuarios() {
@@ -39,6 +40,7 @@ public class Usuarios {
 
 
 
+
     @Exclude
 
     public Map<String, Object> toMap(){
@@ -55,6 +57,14 @@ public class Usuarios {
 
         return hashMapUsuario;
 
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getId() {

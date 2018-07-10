@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CalendarView;
@@ -33,38 +32,51 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.UUID;
 
 
-public class CadastroProdutos extends AppCompatActivity implements DatePickerDialog.OnDateSetListener{
+public class CadastroProdutos extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
+
+    private  Calendar diaEscolhido, horaEscolhida;
     private SpinnerAdapter spinnerAdapter;
     private Spinner spinnerc, spinnerd;
     private ValueEventListener valueEventListenerProdutos;
     private Button btnGravar, btnVoltarTelaInicial, edtHorario, edtServiço, btnTeste;
-    private Agendamento agendamento;
+    public Agendamento agendamento;
+    public String agd = "";
     private Serv serv;
     private EditText edtTeste, edtTeste2;
-    private Agendamento agendamento2;
     private Usuarios usuarios;
+    String agendamentoc = "";
     private AlertDialog alerta;
     private DatabaseReference firebase;
-    private int day,month,year,hour,minute;
+    private int day, month, year, hour, minute;
     String nomeRecurso;
-    private int dayFinal,monthFinal,yearFinal,hourFinal,minuteFinal;
+    private int dayFinal, monthFinal, yearFinal, hourFinal, minuteFinal;
     CalendarView calendario;
+    boolean horarioLivre;
+    boolean controleClique;
+    List<Agendamento> listaAgendamentos;
+
+
+    public String getAgendamentoc(String agendamentoc) {
+        return agendamentoc;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro_produtos);
-
-
-
-
-
+        horarioLivre = true;
+        controleClique = false;
+        listaAgendamentos = new ArrayList<>();
+        diaEscolhido = Calendar.getInstance();
+        horaEscolhida = Calendar.getInstance();
 
 
         edtHorario = (Button) findViewById(R.id.edtHorario);
@@ -78,13 +90,14 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
         firebase = ConfiguracaoFirebase.getFirebase().child("barbeiros");
 
 
-
         valueEventListenerProdutos = new ProdutoDataloader(new ProdutoDataloader.ProdutoDataListener() {
             @Override
             public void onProdutoLoaded(List<Agendamento> teste) {
 
-                List<Agendamento> padrao = new ArrayList<Agendamento>(); //CRIEI UMA NOVA LISTA AQUI
-                List<Agendamento> serv = new ArrayList<Agendamento>();
+                //    ( (TextView)(findViewById(R.id.txistatus))).setText("aaa");
+
+                List<Agendamento> padrao = new ArrayList<>(); //CRIEI UMA NOVA LISTA AQUI
+                List<Agendamento> serv = new ArrayList<>();
 
                 Agendamento serv1 = new Agendamento();
                 Agendamento serv2 = new Agendamento();
@@ -113,9 +126,7 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
 
 
 
-
             }
-
 
 
         });
@@ -138,28 +149,6 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
          */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         edtHorario.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -170,12 +159,11 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
                 day = c.get(Calendar.DAY_OF_MONTH);
 
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(CadastroProdutos.this , CadastroProdutos.this , year,month,day);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(CadastroProdutos.this, CadastroProdutos.this, year, month, day);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                 datePickerDialog.show();
 
             }
-
 
 
         });
@@ -191,7 +179,9 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
                 mTimePicker = new TimePickerDialog(CadastroProdutos.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        edtServiço.setText( selectedHour + ":" + selectedMinute);
+                        horaEscolhida.getTime().setHours(selectedHour);
+                        horaEscolhida.getTime().setMinutes(selectedMinute);
+                        edtServiço.setText((selectedHour < 9 ? "0": "") + selectedHour + ":" + selectedMinute);
                     }
                 }, hour, minute, true);//Yes 24 hour time
                 mTimePicker.setTitle("Select Time");
@@ -200,73 +190,33 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
         });
 
 
-
-
-
-
         btnGravar.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
+                controleClique = true;
 
-                FirebaseDatabase.getInstance().getReference("agendamento").addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    listaAgendamentos.clear();
 
-                        List<Agendamento> listaAgedametos = new ArrayList();
-                        for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
-                             Agendamento agendamento = postSnapshot.getValue(Agendamento.class);
-                            listaAgedametos.add(agendamento);
-                        }
+                    FirebaseDatabase.getInstance().getReference("agendamento").addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(controleClique) {
+                                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
 
-
-
-                        boolean horarioLivre = true;
-
-
-
-                        for(Agendamento agendamento : listaAgedametos ){
-                            if(agendamento.getHorario().contains(edtServiço.getText().toString())){
-                                horarioLivre = false;
+                                    listaAgendamentos.add(postSnapshot.getValue(Agendamento.class));
+                                }
+                                salvar();
+                                horarioLivre = true;
+                                controleClique = false;
                             }
                         }
 
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
 
-                        if (!horarioLivre){
-                            Toast.makeText(CadastroProdutos.this, "Horário não disponível! Tente outro Horário",    Toast.LENGTH_LONG).show();
                         }
-
-                        else{
-                            agendamento = new Agendamento();
-                            String nomeServ = ((Agendamento) spinnerd.getSelectedItem()).getNome();
-                            agendamento.setNome(nomeServ);
-                            agendamento.setHorario(edtServiço.getText().toString());
-                            agendamento.setDate(edtHorario.getText().toString());
-                            String nomeBarbeiro = ((Agendamento) spinnerc.getSelectedItem()).getNome();
-                            agendamento.setBarbeiro(nomeBarbeiro);
-                            String idenficadorUsuario = Base64Custom.codificarBase64(DadosSingleton.getInstance().getUser().getEmail());
-                            agendamento.setIdUsuario(idenficadorUsuario);
-                            agendamento.setStatus("AGENDADO");
-                            String nomeUsuario = DadosSingleton.getInstance().getUser().getNome();
-                            agendamento.setNomeCliente(nomeUsuario);
-                            String imageUsuario = DadosSingleton.getInstance().getUser().getImg();
-                            agendamento.setImageCliente(imageUsuario);
-                            agendamento.setImgStatus("https://image.freepik.com/fotos-gratis/blur-abstract-bokeh-light-background-preto-e-branco-tom-monocromatico_7190-592.jpg");
-                            String identificadorAgend = Base64Custom.codificarBase64(agendamento.getHorario());
-                            agendamento.setIdAgendamento(identificadorAgend);
-                            agendar();
-                        }
-
-
-
-
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
-
+                    });
 
 
 
@@ -312,23 +262,11 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
                 agendamento.setImgStatus("https://image.freepik.com/fotos-gratis/blur-abstract-bokeh-light-background-preto-e-branco-tom-monocromatico_7190-592.jpg");
                 String identificadorAgend = Base64Custom.codificarBase64(agendamento.getHorario());
                 agendamento.setIdAgendamento(identificadorAgend);
-
-
-
-
-*/
-
-
-
-
+                */
 
             }
+
         });
-
-
-
-
-
 
 
 
@@ -341,7 +279,48 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
         });
     }
 
+    private void salvar(){
 
+        for (Agendamento agendamento : listaAgendamentos) {
+            if (agendamento.getBarbeiro().contains(((Agendamento) spinnerc.getSelectedItem()).getNome())) {
+                if (agendamento.getDate().contains(edtHorario.getText().toString())) {
+                    if (agendamento.getHorario().contains(edtServiço.getText().toString())) {
+                        horarioLivre = false;
+                    }
+                }
+            }
+        }
+
+
+
+        if (!horarioLivre) {
+            Toast.makeText(CadastroProdutos.this, "O Barbeiro selecionado, não tem disponibilidade neste horário! Tente selecionar outro horário!", Toast.LENGTH_LONG).show();
+        } else {
+            agendamento = new Agendamento();
+            String nomeServ = ((Agendamento) spinnerd.getSelectedItem()).getNome();
+            agendamento.setNome(nomeServ);
+            agendamento.setHorario(edtServiço.getText().toString());
+            agendamento.setDate(edtHorario.getText().toString());
+            String nomeBarbeiro = ((Agendamento) spinnerc.getSelectedItem()).getNome();
+            agendamento.setBarbeiro(nomeBarbeiro);
+            String idenficadorUsuario = Base64Custom.codificarBase64(DadosSingleton.getInstance().getUser().getEmail());
+            agendamento.setIdUsuario(idenficadorUsuario);
+            agendamento.setStatus("AGENDADO");
+            String nomeUsuario = DadosSingleton.getInstance().getUser().getNome();
+            agendamento.setNomeCliente(nomeUsuario);
+            String imageUsuario = DadosSingleton.getInstance().getUser().getImg();
+            agendamento.setImageCliente(imageUsuario);
+            agendamento.setEmailCliente(DadosSingleton.getInstance().getUser().getEmail());
+            agendamento.setImgStatus("https://image.freepik.com/fotos-gratis/blur-abstract-bokeh-light-background-preto-e-branco-tom-monocromatico_7190-592.jpg");
+            String identificadorAgend = Base64Custom.codificarBase64(agendamento.getHorario());
+            Calendar local = Calendar.getInstance();
+            local = diaEscolhido;
+            local.getTime().setHours(horaEscolhida.getTime().getHours());
+            local.getTime().setMinutes(horaEscolhida.getTime().getMinutes());
+            agendamento.setIdAgendamento(new SimpleDateFormat("yyyyMMddHHmmss").format(local.getTime())+ UUID.randomUUID().toString());
+            agendar();
+        }
+    }
 
     @Override
     protected void onStop() {
@@ -356,7 +335,6 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
     }
 
 
-
     private void voltarTelaInicial() {
         Intent intent = new Intent(CadastroProdutos.this, TelaMenu.class);
         startActivity(intent);
@@ -367,21 +345,29 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
 
-        if (month > 9){
+        SimpleDateFormat aa = new SimpleDateFormat("dd/MM/yyyy"); // HH:mm:ss
+        Calendar c = Calendar.getInstance();
+        c.set(year, month, dayOfMonth);
+        diaEscolhido = c;
+
+       /* if (month > 9) {
             String date1 = dayOfMonth + "/" + (month + 1) + "/" + year;
             edtHorario.setText(date1);
-        }
+        } else {
 
-        else{
-
-            String date = dayOfMonth + "/" + "0"+(month + 1) + "/" + year;
+            String date = dayOfMonth + "/" + "0" + (month + 1) + "/" + year;
             edtHorario.setText(date);
 
         }
+        */
 
+       edtHorario.setText(aa.format(c.getTime()));
 
     }
 
+    private void alert(String s){
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
+    }
     private void agendar() {
         //Cria o gerador do AlertDialog
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -394,12 +380,11 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
         builder.setPositiveButton("Agendar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {
 
-                if (agendamento.salvar(agendamento) == true) {
-
+                if (agendamento.salvar(agendamento)) {
                     Toast.makeText(CadastroProdutos.this, "Agendamento com Sucesso", Toast.LENGTH_SHORT).show();
+                }else {
+                    alert("Falha ao salvar agendamento !");
                 }
-
-
 
 
                 //  if (agendamento.getDate() == ""  || agendamento.getNome() == "Selecione o Serviço"  || agendamento.getBarbeiro() == "Selecione o Barbeiro" ||
@@ -414,12 +399,9 @@ public class CadastroProdutos extends AppCompatActivity implements DatePickerDia
                 //         }
 
 
-
-
-
-
             }
         });
+
         //define um botão como negativo.
         builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface arg0, int arg1) {

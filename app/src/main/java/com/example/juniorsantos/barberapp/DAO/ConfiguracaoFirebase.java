@@ -3,6 +3,7 @@ package com.example.juniorsantos.barberapp.DAO;
 import android.provider.ContactsContract;
 import android.widget.Toast;
 
+import com.example.juniorsantos.barberapp.Entidades.Agendamento;
 import com.example.juniorsantos.barberapp.Entidades.Usuarios;
 import com.example.juniorsantos.barberapp.core.DadosSingleton;
 import com.example.juniorsantos.barberapp.remote.LoginFire;
@@ -54,6 +55,9 @@ public class ConfiguracaoFirebase {
 
             }
 
+
+
+
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -61,4 +65,5 @@ public class ConfiguracaoFirebase {
         };
         usersdRef.addListenerForSingleValueEvent(eventListener);
     }
+
 }

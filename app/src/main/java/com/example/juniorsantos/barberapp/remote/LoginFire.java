@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
 import com.example.juniorsantos.barberapp.Entidades.Usuarios;
 import com.example.juniorsantos.barberapp.R;
@@ -29,6 +30,7 @@ import com.mikhaellopez.circularprogressbar.CircularProgressBar;
 
 public class LoginFire extends AppCompatActivity {
 
+    private boolean controleClique;
     private EditText edtEmail;
     private EditText edtSenha;
     private TextView edtAbreCadastro;
@@ -41,14 +43,11 @@ public class LoginFire extends AppCompatActivity {
     private FirebaseAuth usuarioFirebase;
 
 
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_firebase);
+        controleClique = false;
 
         edtEmail = (EditText) findViewById(R.id.edtEmail);
         edtAbreCadastro = (TextView) findViewById(R.id.edtAbreCadastro);
@@ -56,33 +55,26 @@ public class LoginFire extends AppCompatActivity {
         btnLogar = (Button) findViewById(R.id.btnLogar);
         btnSair = (Button) findViewById(R.id.btnSair);
 
-        CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.circularProgressbar);
-
-
-
-
-
-
-
-
-
-
-
+        CircularProgressBar circularProgressBar = (CircularProgressBar) findViewById(R.id.circularProgressbar);
 
 
         btnLogar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (!edtEmail.getText().toString().equals("") && !edtSenha.getText().toString().equals("")) {
+                controleClique = true;
+                if (controleClique) {
+                    if (!edtEmail.getText().toString().equals("") && !edtSenha.getText().toString().equals("")) {
 
-                    usuarios = new Usuarios();
-                    usuarios.setEmail(edtEmail.getText().toString());
-                    usuarios.setSenha(edtSenha.getText().toString());
+                        usuarios = new Usuarios();
+                        usuarios.setEmail(edtEmail.getText().toString());
+                        usuarios.setSenha(edtSenha.getText().toString());
 
 
-                    validarLogin();
-                } else {
-                    Toast.makeText(LoginFire.this, "Preencha os campos de e-mail e senha!", Toast.LENGTH_SHORT).show();
+                        validarLogin();
+                    } else {
+                        Toast.makeText(LoginFire.this, "Preencha os campos de e-mail e senha!", Toast.LENGTH_SHORT).show();
+                    }
+                    controleClique = false;
                 }
             }
         });
@@ -105,9 +97,7 @@ public class LoginFire extends AppCompatActivity {
 
     private void validarLogin() {
 
-
-
-
+        controleClique = false;
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
         autenticacao.signInWithEmailAndPassword(usuarios.getEmail(), usuarios.getSenha()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -117,41 +107,25 @@ public class LoginFire extends AppCompatActivity {
                         getSystemService(Context.CONNECTIVITY_SERVICE);
                 NetworkInfo networkInfo = connMgr.getActiveNetworkInfo();
 
-                if (networkInfo != null && networkInfo.isConnected()){
+                if (networkInfo != null && networkInfo.isConnected()) {
 
 
-                    if (task.isSuccessful()){
+                    if (task.isSuccessful()) {
 
 
-
-                        ConfiguracaoFirebase.getDadosCliente(usuarios.getEmail().toString() );
-
-
-                        if(DadosSingleton.getInstance().getUser() != null){
-
-                            CircularProgressBar circularProgressBar = (CircularProgressBar)findViewById(R.id.circularProgressbar);
+                        ConfiguracaoFirebase.getDadosCliente(usuarios.getEmail());
 
 
-
-
-                           showProgressDiadlog();
-
-                            Toast.makeText(LoginFire.this, "Seja Bem vindo " + DadosSingleton.getInstance().getUser().getNome().toString() , Toast.LENGTH_SHORT).show();
-
-
+                        if (DadosSingleton.getInstance().getUser() != null) {
                             showProgressDiadlog();
 
-                            abrirTela();
-                        }
-                    }
 
-                    else {
+                        }
+                    } else {
                         Toast.makeText(LoginFire.this, "Usuário ou senha inválidos", Toast.LENGTH_SHORT).show();
                     }
 
-                }
-
-                else {
+                } else {
                     Toast.makeText(LoginFire.this, "Não há conexão estabelecida!", Toast.LENGTH_SHORT).show();
                 }
 
@@ -160,27 +134,46 @@ public class LoginFire extends AppCompatActivity {
     }
 
 
+    private void abrirTela() {
 
-    private void abrirTela(){
-        Intent intentAbrirTela = new Intent(LoginFire.this, TelaMenu.class);
+        if (DadosSingleton.getInstance().getUser().getTipo().contains("1")) {
+
+            Intent intentAbrirTela = new Intent(LoginFire.this, TelaMenu.class);
+            startActivity(intentAbrirTela);
+            Toast.makeText(LoginFire.this, "Seja Bem vindo Usuario: " + DadosSingleton.getInstance().getUser().getNome().toString(), Toast.LENGTH_SHORT).show();
+
+        }
+
+        if (DadosSingleton.getInstance().getUser().getTipo().contains("2")) {
+
+            Intent intentAbrirTela = new Intent(LoginFire.this, TelaServicos.class);
+            startActivity(intentAbrirTela);
+            Toast.makeText(LoginFire.this, "Seja Bem vindo Barbeiro: " + DadosSingleton.getInstance().getUser().getNome().toString(), Toast.LENGTH_SHORT).show();
+
+        }
+
+
+    }
+
+    private void abrirTela2() {
+
+        Intent intentAbrirTela = new Intent(LoginFire.this, TelaServicos.class);
         startActivity(intentAbrirTela);
 
 
-
-
-
     }
 
-    public void  showProgressDiadlog(){
+
+    public void showProgressDiadlog() {
         final ProgressDialog pDialog = new ProgressDialog(this);
-        pDialog.setMessage("Carregando...");
+        pDialog.setMessage("Autenticando...");
         pDialog.setCancelable(false);
         pDialog.show();
-        finish();
-
+        abrirTela();
+        pDialog.dismiss();
     }
 
-    public void abreCadastroUsuario(){
+    public void abreCadastroUsuario() {
         Intent intent = new Intent(LoginFire.this, CadastroActivity.class);
         startActivity(intent);
         finish();
@@ -192,7 +185,6 @@ public class LoginFire extends AppCompatActivity {
         Usuarios usuarios = dataSnapshot.getValue(Usuarios.class);
         System.out.println(dataSnapshot.getKey() + " was " + usuarios.getNome() + " meters tall.");
     }
-
 
 
 }

@@ -2,7 +2,9 @@ package com.example.juniorsantos.barberapp.Entidades;
 
 import com.example.juniorsantos.barberapp.DAO.ConfiguracaoFirebase;
 import com.example.juniorsantos.barberapp.core.DadosSingleton;
+import com.example.juniorsantos.barberapp.core.DataAdapter;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 
@@ -22,35 +24,37 @@ public class Agendamento {
     private String nomeCliente;
     private String imageCliente;
     private String imgStatus;
-
+    private String emailCliente;
 
     public Agendamento() {
 
     }
 
-    public boolean salvar(Agendamento agendamento){
+     public boolean salvar(Agendamento agendamento){
         try {
-
             DatabaseReference referenciaFirebase = ConfiguracaoFirebase.getFirebase();
-            referenciaFirebase.child("agendamento").child(String.valueOf(getIdAgendamento())).setValue(this);
+            referenciaFirebase.child("agendamento").child(String.valueOf(getIdAgendamento())).setValue(agendamento);
+
 
             referenciaFirebase = ConfiguracaoFirebase.getFirebase().child("agendamento");
             referenciaFirebase.child(agendamento.getIdAgendamento()).setValue(agendamento);
             return true;
-
         }
 
         catch (Exception e) {
             e.printStackTrace();
-            return false;
-
         }
-
-
-
-
+        return false;
     }
 
+
+    public String getEmailCliente() {
+        return emailCliente;
+    }
+
+    public void setEmailCliente(String emailCliente) {
+        this.emailCliente = emailCliente;
+    }
 
     public String getImgStatus() {
         return imgStatus;
@@ -171,4 +175,3 @@ public class Agendamento {
 
 
 }
-
