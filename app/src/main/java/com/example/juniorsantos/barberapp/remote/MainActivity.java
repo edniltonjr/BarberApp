@@ -26,6 +26,7 @@ import com.google.firebase.database.Query;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -33,7 +34,10 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView mbLogList;
     private DatabaseReference mDatabase;
-    private static FirebaseAuth autenticacao;
+    private Agendamento agendamento;
+    private static String autenticacao;
+    List<Agendamento> agendament;
+
 
 
 
@@ -44,8 +48,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        autenticacao = FirebaseAuth.getInstance().getCurrentUser().getEmail(); //RETORNA O USUARIO LOGADO
+
+
 
         mDatabase= FirebaseDatabase.getInstance().getReference().child("agendamento");
+
+
+
+
  //       mDatabase.orderByChild("emailCliente").equalTo(DadosSingleton.getInstance().getUser().getEmail());
 
 
@@ -61,14 +72,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
 
         super.onStart();
+        Query query = mDatabase.orderByChild("idAgendamento");
+
         FirebaseRecyclerAdapter<Agendamento, BlogViewHolder>firebaseRecyclerAdapter=new FirebaseRecyclerAdapter<Agendamento, BlogViewHolder>
-                (Agendamento.class, R.layout.blog_row, BlogViewHolder.class, mDatabase) {
+                (Agendamento.class, R.layout.blog_row, BlogViewHolder.class, query) {
 
 
 
 
             @Override
+
+
+
             protected void populateViewHolder(final BlogViewHolder viewHolder, final Agendamento model, int position) {
+
 
                 viewHolder.setData("DATA:      "+model.getDate());
                 viewHolder.setHora("HORARIO:   "+model.getHorario());
