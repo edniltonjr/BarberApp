@@ -39,6 +39,7 @@ public class CadastroActivity extends AppCompatActivity {
     private Button btnGravar;
     private Usuarios usuarios;
     private FirebaseAuth autenticacao;
+    private Teste teste;
 
 
 
