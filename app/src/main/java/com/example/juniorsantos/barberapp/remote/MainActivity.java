@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
 
         DatabaseReference aa = FirebaseDatabase.getInstance().getReference();
 
-        Query a = aa.child("agendamento");
+        Query a = aa.child("agendamento").orderByChild("emailCliente").equalTo(DadosSingleton.getInstance().getUser().getEmail().trim());
 
         Toast.makeText(this, DadosSingleton.getInstance().getUser().getEmail(), Toast.LENGTH_LONG).show();
 
