@@ -1,2 +1,6 @@
 # projetobarbearia
-projeto didatico
+Projeto Conclusão de Curso
+
+Aplicativo de Agendamento para Barbearias
+
+
