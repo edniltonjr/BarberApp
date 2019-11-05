@@ -130,6 +130,12 @@ public class TelaMenu extends BaseActivity
             // Handle the camera action
         } else if (id == R.id.nav_gallery) {
 
+            Intent intent = new Intent(TelaMenu.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+
+
+
 
         } else if (id == R.id.nav_slideshow) {
 

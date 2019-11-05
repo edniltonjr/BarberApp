@@ -32,7 +32,7 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".TelaAgendar" />
         <activity android:name=".TelaBarbeiro" />
-        android:name=".model.DetaillActivity"
+        <activity android:name=".model.DetaillActivity"
         android:label="@string/title_activity_detaill"
         android:theme="@style/AppTheme" />
         <activity android:name=".TelaHorario" />

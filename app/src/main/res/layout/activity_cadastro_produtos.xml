@@ -31,11 +31,13 @@
 
     <Spinner
         android:id="@+id/spinnerview1"
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
         android:layout_height="41dp"></Spinner>
 
 
     <Spinner
+        android:background="@color/colorWhite"
         android:id="@+id/spinnerview2"
         android:layout_width="match_parent"
         android:layout_height="41dp"
